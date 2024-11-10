@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.piggybank.renote.databinding.FragmentCatatanBinding
@@ -12,9 +11,6 @@ import com.piggybank.renote.databinding.FragmentCatatanBinding
 class CatatanFragment : Fragment() {
 
     private var _binding: FragmentCatatanBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,16 +18,15 @@ class CatatanFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val catatanViewModel =
-            ViewModelProvider(this).get(CatatanViewModel::class.java)
+        val catatanViewModel = ViewModelProvider(this).get(CatatanViewModel::class.java)
 
         _binding = FragmentCatatanBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textCatatan
-        catatanViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        catatanViewModel.text.observe(viewLifecycleOwner) { newText ->
+            binding.roundedCanvasTextView.text = newText
         }
+
         return root
     }
 
