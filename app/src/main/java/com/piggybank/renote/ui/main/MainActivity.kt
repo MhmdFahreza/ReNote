@@ -5,8 +5,6 @@ import android.view.View
 import android.view.animation.ScaleAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.piggybank.renote.R
@@ -25,15 +23,12 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_catatan, R.id.navigation_rekening, R.id.navigation_laporan, R.id.navigation_setting
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        // Konfigurasi BottomNavigationView tanpa setupActionBarWithNavController
         navView.setupWithNavController(navController)
 
-        // Animasi pada saat item di re-select
+        // Sembunyikan ActionBar
+        supportActionBar?.hide()
+
         navView.setOnItemReselectedListener { item ->
             val view = navView.findViewById<View>(item.itemId)
             val scaleAnimation = ScaleAnimation(
@@ -48,4 +43,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-

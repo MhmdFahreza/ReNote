@@ -4,4 +4,5 @@
     <string name="menu_catatan">Catatan</string>
     <string name="menu_rekening">Rekening</string>
     <string name="menu_laporan">Laporan</string>
+    <string name="icon_calendar">Calendar</string>
 </resources>
