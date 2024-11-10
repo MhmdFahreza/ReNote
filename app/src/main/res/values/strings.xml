@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ReNote</string>
+    <string name="menu_setting">setting</string>
+    <string name="menu_catatan">Catatan</string>
+    <string name="menu_rekening">Rekening</string>
+    <string name="menu_laporan">Laporan</string>
+</resources>

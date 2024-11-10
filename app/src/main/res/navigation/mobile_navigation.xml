@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_catatan">
+
+    <fragment
+        android:id="@+id/navigation_catatan"
+        android:name="com.piggybank.renote.ui.catatan.CatatanFragment"
+        android:label="@string/menu_catatan"
+        tools:layout="@layout/fragment_catatan" />
+
+    <fragment
+        android:id="@+id/navigation_rekening"
+        android:name="com.piggybank.renote.ui.rekening.RekeningFragment"
+        android:label="@string/menu_rekening"
+        tools:layout="@layout/fragment_rekening" />
+
+    <fragment
+        android:id="@+id/navigation_laporan"
+        android:name="com.piggybank.renote.ui.laporan.LaporanFragment"
+        android:label="@string/menu_laporan"
+        tools:layout="@layout/fragment_laporan" />
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.piggybank.renote.ui.setting.SettingFragment"
+        android:label="@string/menu_setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>
