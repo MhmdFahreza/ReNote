@@ -54,4 +54,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
 }

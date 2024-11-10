@@ -1,16 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.ReNote" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <!-- Primary brand color (light brown). -->
+        <item name="colorPrimary">@color/light_brown</item>
+        <item name="colorPrimaryVariant">@color/dark_brown</item>
         <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+
+        <!-- Secondary brand color (cream). -->
+        <item name="colorSecondary">@color/cream</item>
+        <item name="colorSecondaryVariant">@color/light_cream</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Status bar color (cream). -->
+        <item name="android:statusBarColor">@color/warm_cream</item>
+
+        <!-- Set text color for menu items to black -->
+        <item name="android:textColorPrimary">@color/black</item>
+
         <!-- Customize your theme here. -->
     </style>
 
@@ -18,5 +24,4 @@
     <style name="Theme.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/warm_cream</item>
     </style>
-
 </resources>
