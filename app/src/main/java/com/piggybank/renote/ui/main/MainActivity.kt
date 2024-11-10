@@ -1,6 +1,8 @@
 package com.piggybank.renote.ui.main
 
 import android.os.Bundle
+import android.view.View
+import android.view.animation.ScaleAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,10 +23,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_catatan, R.id.navigation_rekening, R.id.navigation_laporan, R.id.navigation_setting
@@ -32,5 +32,20 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // Animasi pada saat item di re-select
+        navView.setOnItemReselectedListener { item ->
+            val view = navView.findViewById<View>(item.itemId)
+            val scaleAnimation = ScaleAnimation(
+                0.9f, 1.1f, 0.9f, 1.1f,
+                ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
+                ScaleAnimation.RELATIVE_TO_SELF, 0.5f
+            ).apply {
+                duration = 150
+                fillAfter = true
+            }
+            view.startAnimation(scaleAnimation)
+        }
     }
 }
+
