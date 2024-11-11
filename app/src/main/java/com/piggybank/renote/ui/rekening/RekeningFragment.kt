@@ -4,17 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.piggybank.renote.databinding.FragmentRekeningBinding
 
 class RekeningFragment : Fragment() {
 
     private var _binding: FragmentRekeningBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -28,10 +25,18 @@ class RekeningFragment : Fragment() {
         _binding = FragmentRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textRekening
-        rekeningViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        // Observe total saldo and set it to TextView
+        rekeningViewModel.totalSaldo.observe(viewLifecycleOwner) { totalSaldo ->
+            binding.totalSaldo.text = "Rp $totalSaldo"
         }
+
+        // Setup RecyclerView
+        rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
+            val adapter = RekeningAdapter(rekeningList)
+            binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
+            binding.rekeningList.adapter = adapter
+        }
+
         return root
     }
 

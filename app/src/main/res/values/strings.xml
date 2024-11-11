@@ -22,4 +22,9 @@
     <string name="hasil_scan">Hasil Scan</string>
     <string name="pengeluaran">Pengeluaran</string>
     <string name="pemasukan">Pemasukan</string>
+    <string name="total_saldo">Rp. 0</string>
+    <string name="tittle_totalSaldo">Total Saldo</string>
+    <string name="nama_rekening">Nama Rekening</string>
+    <string name="jumlah_rekening">0</string>
+    <string name="edit">Edit</string>
 </resources>
