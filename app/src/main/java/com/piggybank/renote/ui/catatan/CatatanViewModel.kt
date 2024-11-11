@@ -5,8 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class CatatanViewModel : ViewModel() {
-    private val _text = MutableLiveData<String>().apply {
-        value = " Catatan Fragment "
+
+    private val _catatanList = MutableLiveData<List<Catatan>>().apply {
+        value = listOf(
+            Catatan("Pemasukan", "Deskripsi pemasukan 1", 500000.0),
+            Catatan("Pengeluaran", "Deskripsi pengeluaran 1", -200000.0),
+            Catatan("Pemasukan", "Deskripsi pemasukan 2", 300000.0),
+            Catatan("Pengeluaran", "Deskripsi pengeluaran 1", -200000.0),
+            Catatan("Pemasukan", "Deskripsi pemasukan 2", 300000.0)
+        )
     }
-    val text: LiveData<String> = _text
+    val catatanList: LiveData<List<Catatan>> = _catatanList
 }

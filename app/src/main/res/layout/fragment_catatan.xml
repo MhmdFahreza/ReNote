@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.catatan.CatatanFragment">
 
+    <!-- Title TextView -->
     <TextView
         android:id="@+id/title_label"
         android:layout_width="match_parent"
@@ -24,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
+    <!-- Calendar Button -->
     <ImageButton
         android:id="@+id/calendar_button"
         android:layout_width="48dp"
@@ -36,25 +37,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Linear Layout for Income, Expense, Total -->
     <LinearLayout
         android:id="@+id/linearLayout_pemasukan_pengeluaran_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/title_label"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/title_label">
 
         <TextView
             android:id="@+id/text_pemasukan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/input_pemasukan"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/input_pemasukan"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -62,11 +64,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/input_pengeluaran"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/input_pengeluaran"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -74,60 +76,80 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/input_total"
-            android:textSize="18sp"
-            android:textColor="@android:color/black"
-            android:gravity="center"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="@string/input_total"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- CardView with ScrollView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/rounded_canvas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/ivory"
         app:cardCornerRadius="20dp"
         app:cardElevation="4dp"
-        app:cardBackgroundColor="@color/ivory"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_spacer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayout_pemasukan_pengeluaran_total">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/title_riwayat"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/riwayat"
-                android:textSize="20sp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="4dp"
-                android:background="@android:color/black" />
+                <TextView
+                    android:id="@+id/title_riwayat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/riwayat"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/roundedCanvasTextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:text="" />
-        </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@android:color/black" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/transaction_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    tools:listitem="@layout/item_catatan" />
+            </LinearLayout>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 
+    <View
+        android:id="@+id/bottom_spacer"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/catatan_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/tambah"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/light_brown"
+        app:layout_constraintBottom_toTopOf="@id/bottom_spacer"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

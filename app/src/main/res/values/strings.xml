@@ -9,4 +9,9 @@
     <string name="input_pengeluaran">Pengeluaran\n0</string>
     <string name="input_total">Total\n0</string>
     <string name="riwayat">Riwayat</string>
+    <string name="kategori">Kategori</string>
+    <string name="deskripsi_transaksi">Deskripsi transaksi</string>
+    <string name="jumlah_catatan">0</string>
+    <string name="arrow_icon">arrow icon</string>
+    <string name="tambah">tambah</string>
 </resources>

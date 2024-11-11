@@ -14,7 +14,7 @@
         android:background="@color/light_brown"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:padding="16dp"
+        android:padding="8dp"
         android:text="@string/menu_rekening"
         android:textColor="@android:color/white"
         android:textSize="24sp"
