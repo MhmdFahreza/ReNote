@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentCatatanBinding
 
 class CatatanFragment : Fragment() {
@@ -32,7 +34,6 @@ class CatatanFragment : Fragment() {
         binding.transactionRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = catatanAdapter
-            // Add item decoration for spacing
             val itemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             addItemDecoration(itemDecoration)
         }
@@ -40,6 +41,11 @@ class CatatanFragment : Fragment() {
         // Observe data from ViewModel and update adapter
         catatanViewModel.catatanList.observe(viewLifecycleOwner) { catatanList ->
             catatanAdapter.submitList(catatanList)
+        }
+
+        // Handle the Add button click using NavController
+        binding.catatanAdd.setOnClickListener {
+            findNavController().navigate(R.id.navigation_tambahCatatan)
         }
 
         return root

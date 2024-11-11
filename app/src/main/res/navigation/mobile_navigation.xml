@@ -28,4 +28,10 @@
         android:name="com.piggybank.renote.ui.setting.SettingFragment"
         android:label="@string/menu_setting"
         tools:layout="@layout/fragment_setting" />
+
+    <fragment
+        android:id="@+id/navigation_tambahCatatan"
+        android:name="com.piggybank.renote.ui.catatan.TambahCatatan"
+        android:label="Detail"
+        tools:layout="@layout/fragment_tambah" />
 </navigation>
