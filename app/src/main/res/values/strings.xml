@@ -18,5 +18,8 @@
     <string name="camera_icon">Ikon Camera</string>
     <string name="back_icon">Ikon kembali</string>
     <string name="buat">Buat</string>
-    <string name="tanggal">Tanggal</string>
+    <string name="tanggal">6 November, 2024</string>
+    <string name="hasil_scan">Hasil Scan</string>
+    <string name="pengeluaran">Pengeluaran</string>
+    <string name="pemasukan">Pemasukan</string>
 </resources>
