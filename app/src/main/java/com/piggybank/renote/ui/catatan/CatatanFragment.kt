@@ -43,7 +43,7 @@ class CatatanFragment : Fragment() {
             catatanAdapter.submitList(catatanList)
         }
 
-        // Handle the Add button click using NavController
+
         binding.catatanAdd.setOnClickListener {
             findNavController().navigate(R.id.navigation_tambahCatatan)
         }
