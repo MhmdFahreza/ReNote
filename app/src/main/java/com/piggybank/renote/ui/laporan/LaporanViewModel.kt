@@ -6,8 +6,14 @@ import androidx.lifecycle.ViewModel
 
 class LaporanViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Laporan Fragment"
+    // LiveData for category list
+    private val _categoryList = MutableLiveData<List<Laporan>>().apply {
+        value = listOf(
+            Laporan("Makanan", "40%"),
+            Laporan("Transportasi", "30%"),
+            Laporan("Hiburan", "20%"),
+            Laporan("Pendidikan", "10%")
+        )
     }
-    val text: LiveData<String> = _text
+    val categoryList: LiveData<List<Laporan>> = _categoryList
 }

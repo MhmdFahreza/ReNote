@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.laporan.LaporanFragment">
 
+    <!-- Title Label -->
     <TextView
         android:id="@+id/title_label"
         android:layout_width="match_parent"
@@ -24,18 +25,43 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
+    <!-- Dropdown for Month and Year -->
     <TextView
-        android:id="@+id/text_laporan"
-        android:layout_width="match_parent"
+        android:id="@+id/date_dropdown"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_marginTop="16dp"
+        android:text="@string/laporan_bulanan"
+        android:textSize="18sp"
+        android:padding="8dp"
         android:gravity="center"
+        app:drawableEndCompat="@drawable/ic_drop_down_24"
         app:layout_constraintTop_toBottomOf="@id/title_label"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Pie Chart Placeholder -->
+    <ImageView
+        android:id="@+id/pie_chart"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/diagram_lingkaran"
+        android:src="@drawable/diagram"
+        app:layout_constraintTop_toBottomOf="@id/date_dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- RecyclerView for Category List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/laporan_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:overScrollMode="always"
+        app:layout_constraintTop_toBottomOf="@id/pie_chart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
