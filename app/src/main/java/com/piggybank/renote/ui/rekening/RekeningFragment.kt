@@ -32,7 +32,9 @@ class RekeningFragment : Fragment() {
         }
 
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
-            val adapter = RekeningAdapter(rekeningList)
+            val adapter = RekeningAdapter(rekeningList) { _ ->
+                findNavController().navigate(R.id.action_rekeningFragment_to_editRekening)
+            }
             binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
             binding.rekeningList.adapter = adapter
         }
@@ -49,3 +51,4 @@ class RekeningFragment : Fragment() {
         _binding = null
     }
 }
+

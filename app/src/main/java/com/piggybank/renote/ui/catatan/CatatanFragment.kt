@@ -29,7 +29,11 @@ class CatatanFragment : Fragment() {
 
         catatanViewModel = ViewModelProvider(this).get(CatatanViewModel::class.java)
 
-        catatanAdapter = CatatanAdapter()
+        // Pass a lambda function to navigate to the edit screen
+        catatanAdapter = CatatanAdapter(navigateToEdit = {
+            findNavController().navigate(R.id.navigation_editCatatan)
+        })
+
         binding.transactionRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = catatanAdapter
@@ -40,7 +44,6 @@ class CatatanFragment : Fragment() {
         catatanViewModel.catatanList.observe(viewLifecycleOwner) { catatanList ->
             catatanAdapter.submitList(catatanList)
         }
-
 
         binding.catatanAdd.setOnClickListener {
             findNavController().navigate(R.id.navigation_tambahCatatan)

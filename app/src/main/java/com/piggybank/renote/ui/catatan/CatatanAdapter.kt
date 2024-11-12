@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.piggybank.renote.databinding.ItemCatatanBinding
 
-class CatatanAdapter : RecyclerView.Adapter<CatatanAdapter.CatatanViewHolder>() {
+class CatatanAdapter(
+    private val navigateToEdit: () -> Unit
+) : RecyclerView.Adapter<CatatanAdapter.CatatanViewHolder>() {
 
     private var catatanList = listOf<Catatan>()
 
@@ -13,7 +15,7 @@ class CatatanAdapter : RecyclerView.Adapter<CatatanAdapter.CatatanViewHolder>() 
         val binding = ItemCatatanBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return CatatanViewHolder(binding)
+        return CatatanViewHolder(binding, navigateToEdit)
     }
 
     override fun onBindViewHolder(holder: CatatanViewHolder, position: Int) {
@@ -28,11 +30,20 @@ class CatatanAdapter : RecyclerView.Adapter<CatatanAdapter.CatatanViewHolder>() 
         notifyDataSetChanged()
     }
 
-    class CatatanViewHolder(private val binding: ItemCatatanBinding) : RecyclerView.ViewHolder(binding.root) {
+    class CatatanViewHolder(
+        private val binding: ItemCatatanBinding,
+        private val navigateToEdit: () -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(catatan: Catatan) {
             binding.categoryTextView.text = catatan.category
             binding.descriptionTextView.text = catatan.description
             binding.amountTextView.text = catatan.amount.toString()
+
+            // Set click listener for the arrow icon to navigate to EditCatatan
+            binding.arrowIcon.setOnClickListener {
+                navigateToEdit()
+            }
         }
     }
 }

@@ -9,13 +9,20 @@
         android:id="@+id/navigation_catatan"
         android:name="com.piggybank.renote.ui.catatan.CatatanFragment"
         android:label="@string/menu_catatan"
-        tools:layout="@layout/fragment_catatan" />
+        tools:layout="@layout/fragment_catatan">
+        <action
+            android:id="@+id/action_catatanFragment_to_editCatatan"
+            app:destination="@id/navigation_editCatatan" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_rekening"
         android:name="com.piggybank.renote.ui.rekening.RekeningFragment"
         android:label="@string/menu_rekening"
         tools:layout="@layout/fragment_rekening">
+        <action
+            android:id="@+id/action_rekeningFragment_to_editRekening"
+            app:destination="@id/navigation_editRekening" />
         <action
             android:id="@+id/action_rekeningFragment_to_tambahRekening"
             app:destination="@id/navigation_tambahRekening" />
@@ -44,4 +51,17 @@
         android:name="com.piggybank.renote.ui.catatan.TambahCatatan"
         android:label="Detail"
         tools:layout="@layout/fragment_tambah" />
+
+    <fragment
+        android:id="@+id/navigation_editCatatan"
+        android:name="com.piggybank.renote.ui.catatan.EditCatatan"
+        android:label="Edit Catatan"
+        tools:layout="@layout/fragment_edit_catatan" />
+
+    <fragment
+        android:id="@+id/navigation_editRekening"
+        android:name="com.piggybank.renote.ui.rekening.EditRekening"
+        android:label="Edit Rekening"
+        tools:layout="@layout/fragment_edit_rekening" />
+
 </navigation>
