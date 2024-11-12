@@ -50,7 +50,6 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="top_bar" />
 
-
     <RadioGroup
         android:id="@+id/toggle_group"
         android:layout_width="0dp"
@@ -81,7 +80,6 @@
             android:layout_weight="1"
             android:padding="12dp" />
     </RadioGroup>
-
 
     <ScrollView
         android:layout_width="0dp"
@@ -116,7 +114,9 @@
                 android:hint="@string/kategori"
                 android:background="@drawable/rounded_input"
                 android:padding="16dp"
-                android:layout_marginBottom="16dp" />
+                android:autofillHints="AUTOFILL_HINT_CATEGORY"
+                android:layout_marginBottom="16dp"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/input_amount"
@@ -126,6 +126,7 @@
                 android:inputType="number"
                 android:background="@drawable/rounded_input"
                 android:padding="16dp"
+                android:autofillHints="AUTOFILL_HINT_CURRENCY_AMOUNT"
                 android:layout_marginBottom="16dp" />
 
             <EditText
@@ -137,6 +138,7 @@
                 android:minLines="3"
                 android:background="@drawable/rounded_input"
                 android:padding="16dp"
+                android:autofillHints="AUTOFILL_HINT_DESCRIPTION"
                 android:layout_marginBottom="16dp" />
 
             <LinearLayout
@@ -163,9 +165,6 @@
                     android:textSize="16sp"
                     android:layout_marginStart="8dp" />
             </LinearLayout>
-
-
-
 
             <Button
                 android:id="@+id/button_create"
