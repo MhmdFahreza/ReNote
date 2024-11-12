@@ -73,9 +73,9 @@
             android:padding="12dp" />
 
         <RadioButton
-            android:id="@+id/radio_pemasukan"
+            android:id="@+id/radio_pendapatan"
             style="@style/ToggleButtonStyle"
-            android:text="@string/pemasukan"
+            android:text="@string/pendapatan"
             android:background="@drawable/toggle_selector"
             android:button="@null"
             android:layout_weight="1"

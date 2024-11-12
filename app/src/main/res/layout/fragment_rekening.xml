@@ -24,22 +24,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
-    <!-- Rekening Section Title -->
-    <TextView
-        android:id="@+id/text_rekening"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/saldo_card_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_label" />
-
-    <!-- CardView for Saldo -->
     <androidx.cardview.widget.CardView
         android:id="@+id/saldo_card_container"
         android:layout_width="match_parent"
@@ -49,7 +33,9 @@
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_rekening">
+        app:layout_constraintTop_toBottomOf="@id/title_label"
+        app:layout_constraintBottom_toTopOf="@id/rekening_list"
+        tools:layout_editor_absoluteY="88dp">
 
         <!-- Total Saldo Container -->
         <LinearLayout
@@ -57,7 +43,7 @@
             android:layout_height="wrap_content"
             android:background="@color/light_cream"
             android:orientation="horizontal"
-            android:padding="32dp">
+            android:padding="36dp">
 
             <!-- Total Saldo Label -->
             <TextView
@@ -88,7 +74,6 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- RecyclerView for My Rekening List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rekening_list"
         android:layout_width="match_parent"

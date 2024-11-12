@@ -39,7 +39,7 @@
 
     <!-- Linear Layout for Income, Expense, Total -->
     <LinearLayout
-        android:id="@+id/linearLayout_pemasukan_pengeluaran_total"
+        android:id="@+id/linearLayout_pendapatan_pengeluaran_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -48,13 +48,13 @@
         app:layout_constraintTop_toBottomOf="@id/title_label">
 
         <TextView
-            android:id="@+id/text_pemasukan"
+            android:id="@+id/text_pendapatan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="@string/input_pemasukan"
+            android:text="@string/input_pendapatan"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -96,7 +96,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_spacer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout_pemasukan_pengeluaran_total">
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_pendapatan_pengeluaran_total">
 
         <ScrollView
             android:layout_width="match_parent"
