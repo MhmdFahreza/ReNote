@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 
 class LaporanViewModel : ViewModel() {
 
-    // LiveData for category list
     private val _categoryList = MutableLiveData<List<Laporan>>().apply {
         value = listOf(
             Laporan("Makanan", "40%"),

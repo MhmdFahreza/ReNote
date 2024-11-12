@@ -37,7 +37,6 @@
         app:layout_constraintBottom_toTopOf="@id/rekening_list"
         tools:layout_editor_absoluteY="88dp">
 
-        <!-- Total Saldo Container -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +44,6 @@
             android:orientation="horizontal"
             android:padding="36dp">
 
-            <!-- Total Saldo Label -->
             <TextView
                 android:id="@+id/label_total_saldo"
                 android:layout_width="0dp"
@@ -58,7 +56,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <!-- Total Saldo Amount -->
             <TextView
                 android:id="@+id/total_saldo"
                 android:layout_width="wrap_content"

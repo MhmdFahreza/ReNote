@@ -25,14 +25,12 @@ class LaporanFragment : Fragment() {
         _binding = FragmentLaporanBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Initialize adapter with an empty list
         laporanAdapter = LaporanAdapter(emptyList())
         binding.laporanList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = laporanAdapter
         }
 
-        // Observe ViewModel's category list and update adapter
         laporanViewModel.categoryList.observe(viewLifecycleOwner) { categories ->
             laporanAdapter.updateData(categories)
         }

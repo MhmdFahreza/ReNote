@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.catatan.CatatanFragment">
 
-    <!-- Title TextView -->
     <TextView
         android:id="@+id/title_label"
         android:layout_width="match_parent"
@@ -24,7 +23,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
-    <!-- Calendar Button -->
     <ImageButton
         android:id="@+id/calendar_button"
         android:layout_width="48dp"
@@ -37,7 +35,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Linear Layout for Income, Expense, Total -->
     <LinearLayout
         android:id="@+id/linearLayout_pendapatan_pengeluaran_total"
         android:layout_width="match_parent"
@@ -84,7 +81,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- CardView with ScrollView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/rounded_canvas"
         android:layout_width="match_parent"

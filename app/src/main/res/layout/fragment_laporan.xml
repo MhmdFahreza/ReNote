@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.laporan.LaporanFragment">
 
-    <!-- Title Label -->
     <TextView
         android:id="@+id/title_label"
         android:layout_width="match_parent"
@@ -25,7 +24,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
-    <!-- Dropdown for Month and Year -->
     <TextView
         android:id="@+id/date_dropdown"
         android:layout_width="wrap_content"
@@ -40,7 +38,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Pie Chart Placeholder -->
     <ImageView
         android:id="@+id/pie_chart"
         android:layout_width="150dp"
@@ -52,7 +49,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- RecyclerView for Category List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/laporan_list"
         android:layout_width="0dp"

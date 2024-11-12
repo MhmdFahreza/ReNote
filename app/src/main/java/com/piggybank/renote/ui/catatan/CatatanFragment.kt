@@ -29,7 +29,6 @@ class CatatanFragment : Fragment() {
 
         catatanViewModel = ViewModelProvider(this).get(CatatanViewModel::class.java)
 
-        // Setup RecyclerView
         catatanAdapter = CatatanAdapter()
         binding.transactionRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -38,7 +37,6 @@ class CatatanFragment : Fragment() {
             addItemDecoration(itemDecoration)
         }
 
-        // Observe data from ViewModel and update adapter
         catatanViewModel.catatanList.observe(viewLifecycleOwner) { catatanList ->
             catatanAdapter.submitList(catatanList)
         }

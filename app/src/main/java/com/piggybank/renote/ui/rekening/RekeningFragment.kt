@@ -25,12 +25,10 @@ class RekeningFragment : Fragment() {
         _binding = FragmentRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Observe total saldo and set it to TextView
         rekeningViewModel.totalSaldo.observe(viewLifecycleOwner) { totalSaldo ->
             binding.totalSaldo.text = "Rp $totalSaldo"
         }
 
-        // Setup RecyclerView
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
             val adapter = RekeningAdapter(rekeningList)
             binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
