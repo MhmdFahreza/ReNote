@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentRekeningBinding
 
 class RekeningFragment : Fragment() {
@@ -26,13 +28,17 @@ class RekeningFragment : Fragment() {
         val root: View = binding.root
 
         rekeningViewModel.totalSaldo.observe(viewLifecycleOwner) { totalSaldo ->
-            binding.totalSaldo.text = "Rp $totalSaldo"
+            binding.totalSaldo.text = getString(R.string.total_saldo_rekening, totalSaldo)
         }
 
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
             val adapter = RekeningAdapter(rekeningList)
             binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
             binding.rekeningList.adapter = adapter
+        }
+
+        binding.rekeningAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_rekeningFragment_to_tambahRekening)
         }
 
         return root

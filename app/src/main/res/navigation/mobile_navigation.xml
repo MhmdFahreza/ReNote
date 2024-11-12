@@ -15,7 +15,17 @@
         android:id="@+id/navigation_rekening"
         android:name="com.piggybank.renote.ui.rekening.RekeningFragment"
         android:label="@string/menu_rekening"
-        tools:layout="@layout/fragment_rekening" />
+        tools:layout="@layout/fragment_rekening">
+        <action
+            android:id="@+id/action_rekeningFragment_to_tambahRekening"
+            app:destination="@id/navigation_tambahRekening" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_tambahRekening"
+        android:name="com.piggybank.renote.ui.rekening.TambahRekening"
+        android:label="Tambah Rekening"
+        tools:layout="@layout/fragment_tambah_rekening" />
 
     <fragment
         android:id="@+id/navigation_laporan"

@@ -24,7 +24,7 @@ class RekeningAdapter(private val rekeningList: List<Rekening>) :
     override fun onBindViewHolder(holder: RekeningViewHolder, position: Int) {
         val rekening = rekeningList[position]
         holder.nameTextView.text = rekening.name
-        holder.balanceTextView.text = "Rp ${rekening.balance}"
+        holder.balanceTextView.text = "Rp. ${rekening.balance}"
     }
 
     override fun getItemCount() = rekeningList.size
