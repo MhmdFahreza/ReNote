@@ -7,12 +7,12 @@
         <item name="colorOnPrimary">@color/white</item>
 
         <!-- Secondary brand color (cream). -->
-        <item name="colorSecondary">@color/cream</item>
+        <item name="colorSecondary">@color/light_brown</item>
         <item name="colorSecondaryVariant">@color/light_cream</item>
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Status bar color (cream). -->
-        <item name="android:statusBarColor">@color/warm_cream</item>
+        <item name="android:statusBarColor">@color/Gainsboro</item>
 
         <!-- Set text color for menu items to black -->
         <item name="android:textColorPrimary">@color/black</item>

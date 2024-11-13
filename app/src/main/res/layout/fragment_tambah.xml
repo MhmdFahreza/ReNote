@@ -133,7 +133,7 @@
                 android:id="@+id/input_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/jumlah_catatan"
+                android:hint="@string/jumlah_nominal"
                 android:inputType="number"
                 android:background="@drawable/edit_text_stroke"
                 android:padding="16dp"
@@ -163,6 +163,7 @@
                 android:background="@color/smokegray">
 
                 <ImageView
+                    android:id="@+id/icon_calendar"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_calendar"

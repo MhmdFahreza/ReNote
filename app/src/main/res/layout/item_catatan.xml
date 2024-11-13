@@ -38,7 +38,7 @@
         android:id="@+id/amount_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/jumlah_catatan"
+        android:text="@string/jumlah_nominal"
         android:textSize="16sp"
         android:fontFamily="sans-serif"
         android:textColor="@android:color/white"

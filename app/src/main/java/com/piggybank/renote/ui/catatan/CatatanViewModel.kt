@@ -12,4 +12,6 @@ class CatatanViewModel : ViewModel() {
         )
     }
     val catatanList: LiveData<List<Catatan>> = _catatanList
+
+
 }
