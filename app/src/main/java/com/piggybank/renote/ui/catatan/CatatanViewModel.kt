@@ -18,11 +18,12 @@ class CatatanViewModel : ViewModel() {
     private val _totalSaldo = MutableLiveData(0.0)
     val totalSaldo: LiveData<Double> = _totalSaldo
 
+    var selectedCatatan: Catatan? = null
+
     fun addCatatan(kategori: String, nominal: String, deskripsi: String) {
         val nominalValue = nominal.replace("[^\\d.-]".toRegex(), "").toDoubleOrNull() ?: 0.0
         val isPengeluaran = nominalValue < 0
 
-        // Update pemasukan, pengeluaran, dan total saldo
         if (isPengeluaran) {
             _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + nominalValue
         } else {
@@ -30,10 +31,20 @@ class CatatanViewModel : ViewModel() {
         }
         _totalSaldo.value = (_totalSaldo.value ?: 0.0) + nominalValue
 
-        // Update daftar catatan
         val currentList = _catatanList.value ?: emptyList()
         val updatedList = currentList + Catatan(kategori, nominal, deskripsi)
         _catatanList.value = updatedList
     }
 
+    fun updateCatatan(updatedCatatan: Catatan) {
+        val updatedList = _catatanList.value?.map {
+            if (it == selectedCatatan) updatedCatatan else it
+        } ?: emptyList()
+        _catatanList.value = updatedList
+        clearSelectedCatatan()
+    }
+
+    fun clearSelectedCatatan() {
+        selectedCatatan = null
+    }
 }

@@ -18,7 +18,6 @@ import java.util.Locale
 class CatatanFragment : Fragment() {
 
     private var selectedDate: Calendar? = null
-
     private var _binding: FragmentCatatanBinding? = null
     private val binding get() = _binding!!
 
@@ -32,7 +31,8 @@ class CatatanFragment : Fragment() {
     ): View {
         _binding = FragmentCatatanBinding.inflate(inflater, container, false)
 
-        catatanAdapter = CatatanAdapter {
+        catatanAdapter = CatatanAdapter { catatan ->
+            catatanViewModel.selectedCatatan = catatan
             findNavController().navigate(R.id.navigation_editCatatan)
         }
 
@@ -43,12 +43,10 @@ class CatatanFragment : Fragment() {
             addItemDecoration(itemDecoration)
         }
 
-        // Observe the ViewModel for updates to the catatanList
         catatanViewModel.catatanList.observe(viewLifecycleOwner) { catatanList ->
             catatanAdapter.submitList(catatanList)
         }
 
-        // Observe for total pemasukan, pengeluaran, dan saldo
         catatanViewModel.totalPemasukan.observe(viewLifecycleOwner) { pemasukan ->
             binding.textPemasukan.text = getString(R.string.pemasukan_text, String.format(Locale.getDefault(), "%.1f", pemasukan))
         }
@@ -66,8 +64,8 @@ class CatatanFragment : Fragment() {
             binding.textTotal.text = formattedSaldo
         }
 
-        // Set a click listener for the "Add" button to navigate to the add screen
         binding.catatanAdd.setOnClickListener {
+            catatanViewModel.clearSelectedCatatan()
             findNavController().navigate(R.id.navigation_tambahCatatan)
         }
 

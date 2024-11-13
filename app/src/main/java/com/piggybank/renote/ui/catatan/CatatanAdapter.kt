@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.piggybank.renote.databinding.ItemCatatanBinding
 
 class CatatanAdapter(
-    private val navigateToEdit: () -> Unit
+    private val onEditClick: (Catatan) -> Unit
 ) : RecyclerView.Adapter<CatatanAdapter.CatatanViewHolder>() {
 
     private var catatanList = listOf<Catatan>()
@@ -15,7 +15,7 @@ class CatatanAdapter(
         val binding = ItemCatatanBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return CatatanViewHolder(binding, navigateToEdit)
+        return CatatanViewHolder(binding, onEditClick)
     }
 
     override fun onBindViewHolder(holder: CatatanViewHolder, position: Int) {
@@ -32,7 +32,7 @@ class CatatanAdapter(
 
     class CatatanViewHolder(
         private val binding: ItemCatatanBinding,
-        private val navigateToEdit: () -> Unit
+        private val onEditClick: (Catatan) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(catatan: Catatan) {
@@ -41,7 +41,7 @@ class CatatanAdapter(
             binding.amountTextView.text = catatan.nominal
 
             binding.arrowIcon.setOnClickListener {
-                navigateToEdit()
+                onEditClick(catatan)
             }
         }
     }
