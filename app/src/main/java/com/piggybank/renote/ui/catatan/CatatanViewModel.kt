@@ -44,6 +44,10 @@ class CatatanViewModel : ViewModel() {
         clearSelectedCatatan()
     }
 
+    fun deleteCatatan(catatan: Catatan) {
+        _catatanList.value = _catatanList.value?.filter { it != catatan }
+    }
+
     fun clearSelectedCatatan() {
         selectedCatatan = null
     }

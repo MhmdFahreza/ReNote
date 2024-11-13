@@ -34,6 +34,7 @@ class EditCatatan : Fragment() {
         setupCategorySpinner(currentKategoriType)
         setupToggleGroup()
 
+        // Event listener for update button
         binding.buttonChange.setOnClickListener {
             val updatedCatatan = Catatan(
                 kategori = binding.spinnerCategory.selectedItem.toString(),
@@ -42,6 +43,14 @@ class EditCatatan : Fragment() {
             )
             catatanViewModel.updateCatatan(updatedCatatan)
             findNavController().navigateUp()
+        }
+
+        // Event listener for delete button
+        binding.deleteIcon.setOnClickListener {
+            selectedCatatan?.let {
+                catatanViewModel.deleteCatatan(it)
+                findNavController().navigateUp()
+            }
         }
 
         return binding.root
@@ -80,4 +89,3 @@ class EditCatatan : Fragment() {
         _binding = null
     }
 }
-
