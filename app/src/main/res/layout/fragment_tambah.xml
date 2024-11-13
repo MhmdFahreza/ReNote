@@ -73,9 +73,9 @@
             android:checked="true" />
 
         <RadioButton
-            android:id="@+id/radio_pendapatan"
+            android:id="@+id/radio_pemasukan"
             style="@style/ToggleButtonStyle"
-            android:text="@string/pendapatan"
+            android:text="@string/pemasukan"
             android:background="@drawable/toggle_selector"
             android:button="@null"
             android:layout_weight="1"
@@ -118,16 +118,13 @@
                 android:textColorHint="@color/Gainsboro"
                 android:layout_marginBottom="16dp" />
 
-            <EditText
-                android:id="@+id/input_category"
+            <Spinner
+                android:id="@+id/spinner_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/kategori"
                 android:background="@drawable/edit_text_stroke"
-                android:padding="16dp"
-                android:autofillHints="AUTOFILL_HINT_CATEGORY"
                 android:layout_marginBottom="16dp"
-                android:inputType="text" />
+                android:padding="16dp"/>
 
             <EditText
                 android:id="@+id/input_amount"

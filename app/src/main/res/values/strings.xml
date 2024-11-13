@@ -5,7 +5,7 @@
     <string name="menu_rekening">Rekening</string>
     <string name="menu_laporan">Laporan</string>
     <string name="icon_calendar">Calendar</string>
-    <string name="input_pendapatan">Pendapatan\n0</string>
+    <string name="input_pemasukan">Pemasukan\n0</string>
     <string name="input_pengeluaran">Pengeluaran\n0</string>
     <string name="input_total">Total\n0</string>
     <string name="riwayat">Riwayat</string>
@@ -21,7 +21,7 @@
     <string name="tanggal">Pilih Tanggal</string>
     <string name="hasil_scan">Hasil Scan</string>
     <string name="pengeluaran">Pengeluaran</string>
-    <string name="pendapatan">Pendapatan</string>
+    <string name="pemasukan">Pemasukan</string>
     <string name="total_saldo">Rp. 0</string>
     <string name="total_saldo_rekening">Rp. %.1f</string>
     <string name="tittle_totalSaldo">Total Saldo</string>

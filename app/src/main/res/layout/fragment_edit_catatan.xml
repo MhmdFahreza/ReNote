@@ -49,16 +49,15 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <EditText
+            <Spinner
                 android:id="@+id/input_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/kategori"
-                android:background="@drawable/edit_text_stroke"
-                android:padding="16dp"
-                android:autofillHints="AUTOFILL_HINT_CATEGORY"
                 android:layout_marginBottom="16dp"
-                android:inputType="text" />
+                android:padding="16dp"
+                android:background="@drawable/edit_text_stroke"
+                />
+
 
             <EditText
                 android:id="@+id/input_amount"
