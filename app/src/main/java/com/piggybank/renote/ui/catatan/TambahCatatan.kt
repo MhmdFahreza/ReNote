@@ -34,7 +34,13 @@ class TambahCatatan : Fragment() {
     ): View {
         _binding = FragmentTambahBinding.inflate(inflater, container, false)
 
+        // Menyembunyikan bottom navigation
+        val bottomNavigationView = requireActivity().findViewById<View>(R.id.nav_view)
+        bottomNavigationView.visibility = View.GONE
+
         binding.iconBack.setOnClickListener {
+            // Menampilkan kembali bottom navigation saat kembali
+            bottomNavigationView.visibility = View.VISIBLE
             findNavController().navigateUp()
         }
 
@@ -63,6 +69,8 @@ class TambahCatatan : Fragment() {
             // Send data to CatatanFragment through ViewModel
             catatanViewModel.addCatatan(kategori, formattedNominal, deskripsi)
 
+            // Menampilkan kembali bottom navigation sebelum pindah halaman
+            bottomNavigationView.visibility = View.VISIBLE
             findNavController().navigateUp()
         }
 
