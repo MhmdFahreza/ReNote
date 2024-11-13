@@ -36,11 +36,10 @@ class CatatanAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(catatan: Catatan) {
-            binding.categoryTextView.text = catatan.category
-            binding.descriptionTextView.text = catatan.description
-            binding.amountTextView.text = catatan.amount.toString()
+            binding.categoryTextView.text = catatan.kategori
+            binding.descriptionTextView.text = catatan.deskripsi
+            binding.amountTextView.text = catatan.nominal
 
-            // Set click listener for the arrow icon to navigate to EditCatatan
             binding.arrowIcon.setOnClickListener {
                 navigateToEdit()
             }

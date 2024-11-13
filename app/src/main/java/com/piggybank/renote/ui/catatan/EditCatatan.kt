@@ -21,7 +21,7 @@ class EditCatatan : Fragment() {
         val view = inflater.inflate(R.layout.fragment_edit_catatan, container, false)
         activity?.findViewById<BottomNavigationView>(R.id.nav_view)?.visibility = View.GONE
 
-        val spinner: Spinner = view.findViewById(R.id.input_category)
+        val spinner: Spinner = view.findViewById(R.id.spinner_category)
         val categories = listOf("Pilih Kategori","Makanan", "Transportasi", "Belanja", "Makanan", "Minuman")
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

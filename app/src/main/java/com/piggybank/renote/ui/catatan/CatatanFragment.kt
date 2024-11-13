@@ -6,23 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentCatatanBinding
 import java.util.Calendar
+import java.util.Locale
 
 class CatatanFragment : Fragment() {
 
+    private var selectedDate: Calendar? = null
+
     private var _binding: FragmentCatatanBinding? = null
     private val binding get() = _binding!!
-    private lateinit var catatanAdapter: CatatanAdapter
-    private lateinit var catatanViewModel: CatatanViewModel
 
-    // Variable to store the last selected date
-    private var selectedDate: Calendar? = null
+    private lateinit var catatanAdapter: CatatanAdapter
+    private val catatanViewModel: CatatanViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,13 +31,10 @@ class CatatanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCatatanBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-        catatanViewModel = ViewModelProvider(this).get(CatatanViewModel::class.java)
-
-        catatanAdapter = CatatanAdapter(navigateToEdit = {
+        catatanAdapter = CatatanAdapter {
             findNavController().navigate(R.id.navigation_editCatatan)
-        })
+        }
 
         binding.transactionRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -45,20 +43,39 @@ class CatatanFragment : Fragment() {
             addItemDecoration(itemDecoration)
         }
 
+        // Observe the ViewModel for updates to the catatanList
         catatanViewModel.catatanList.observe(viewLifecycleOwner) { catatanList ->
             catatanAdapter.submitList(catatanList)
         }
 
+        // Observe for total pemasukan, pengeluaran, dan saldo
+        catatanViewModel.totalPemasukan.observe(viewLifecycleOwner) { pemasukan ->
+            binding.textPemasukan.text = getString(R.string.pemasukan_text, String.format(Locale.getDefault(), "%.1f", pemasukan))
+        }
+
+        catatanViewModel.totalPengeluaran.observe(viewLifecycleOwner) { pengeluaran ->
+            binding.textPengeluaran.text = getString(R.string.pengeluaran_text, String.format(Locale.getDefault(), "%.1f", pengeluaran))
+        }
+
+        catatanViewModel.totalSaldo.observe(viewLifecycleOwner) { saldo ->
+            val formattedSaldo = if (saldo < 0) {
+                getString(R.string.negative_saldo_text, String.format(Locale.getDefault(), "%.1f", saldo))
+            } else {
+                getString(R.string.positive_saldo_text, String.format(Locale.getDefault(), "%.1f", saldo))
+            }
+            binding.textTotal.text = formattedSaldo
+        }
+
+        // Set a click listener for the "Add" button to navigate to the add screen
         binding.catatanAdd.setOnClickListener {
             findNavController().navigate(R.id.navigation_tambahCatatan)
         }
 
-        // Set up the DatePickerDialog for calendar_button
         binding.calendarButton.setOnClickListener {
             showDatePickerDialog()
         }
 
-        return root
+        return binding.root
     }
 
     private fun showDatePickerDialog() {
