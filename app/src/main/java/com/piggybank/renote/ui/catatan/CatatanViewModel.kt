@@ -36,16 +36,53 @@ class CatatanViewModel : ViewModel() {
         _catatanList.value = updatedList
     }
 
-    fun updateCatatan(updatedCatatan: Catatan) {
-        val updatedList = _catatanList.value?.map {
-            if (it == selectedCatatan) updatedCatatan else it
-        } ?: emptyList()
+    fun updateCatatanWithAmountUpdate(updatedCatatan: Catatan, oldCatatan: Catatan?) {
+        oldCatatan?.let {
+            val oldNominal = getNominalValue(it.nominal)
+            val newNominal = getNominalValue(updatedCatatan.nominal)
+
+            if (it.kategori == updatedCatatan.kategori) {
+                val difference = newNominal - oldNominal
+                if (it.kategori == "Pemasukan") {
+                    _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) + difference
+                } else {
+                    _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + difference
+                }
+            } else {
+                if (it.kategori == "Pemasukan") {
+                    _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) - oldNominal
+                    _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + newNominal
+                } else {
+                    _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) - oldNominal
+                    _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) + newNominal
+                }
+            }
+
+            // Update saldo
+            _totalSaldo.value = (_totalSaldo.value ?: 0.0) - oldNominal + newNominal
+        }
+
+        // Update the list and clear selection
+        val updatedList = _catatanList.value?.map { if (it == oldCatatan) updatedCatatan else it } ?: emptyList()
         _catatanList.value = updatedList
         clearSelectedCatatan()
     }
 
     fun deleteCatatan(catatan: Catatan) {
-        _catatanList.value = _catatanList.value?.filter { it != catatan }
+        val currentList = _catatanList.value?.filter { it != catatan } ?: emptyList()
+        _catatanList.value = currentList
+
+        val nominalValue = getNominalValue(catatan.nominal)
+        if (catatan.kategori == "Pemasukan") {
+            _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) - nominalValue
+        } else {
+            _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) - nominalValue
+        }
+        _totalSaldo.value = (_totalSaldo.value ?: 0.0) - nominalValue
+    }
+
+    private fun getNominalValue(nominal: String): Double {
+        return nominal.replace("[^\\d.-]".toRegex(), "").toDoubleOrNull() ?: 0.0
     }
 
     fun clearSelectedCatatan() {

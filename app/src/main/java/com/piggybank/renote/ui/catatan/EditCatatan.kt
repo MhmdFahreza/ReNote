@@ -16,7 +16,7 @@ class EditCatatan : Fragment() {
     private var _binding: FragmentEditCatatanBinding? = null
     private val binding get() = _binding!!
     private val catatanViewModel: CatatanViewModel by activityViewModels()
-    private var currentKategoriType: String = "Pengeluaran" // Default to Pengeluaran
+    private var currentKategoriType: String = "Pengeluaran"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +32,6 @@ class EditCatatan : Fragment() {
             onBackIconClicked()
         }
 
-        // Display amount without prefix, but store full string if needed
         selectedCatatan?.nominal?.let {
             val displayedAmount = it.replace("+ Rp ", "").replace("- Rp ", "")
             binding.inputAmount.setText(displayedAmount)
@@ -43,7 +42,6 @@ class EditCatatan : Fragment() {
         setupCategorySpinner(currentKategoriType)
         setupToggleGroup()
 
-        // Event listener for update button
         binding.buttonChange.setOnClickListener {
             val rawNominal = binding.inputAmount.text.toString()
             val formattedNominal = formatNominal(rawNominal, currentKategoriType)
@@ -53,11 +51,11 @@ class EditCatatan : Fragment() {
                 nominal = formattedNominal,
                 deskripsi = binding.inputDescription.text.toString()
             )
-            catatanViewModel.updateCatatan(updatedCatatan)
+
+            catatanViewModel.updateCatatanWithAmountUpdate(updatedCatatan, selectedCatatan)
             findNavController().navigateUp()
         }
 
-        // Event listener for delete button
         binding.deleteIcon.setOnClickListener {
             selectedCatatan?.let {
                 catatanViewModel.deleteCatatan(it)
