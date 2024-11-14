@@ -23,7 +23,7 @@ class RekeningViewModel : ViewModel() {
     val totalSaldo: LiveData<Long> = _totalSaldo
 
     fun addRekening(rekening: Rekening): Boolean {
-        val existingRekening = _rekeningList.value?.find { it.name == rekening.name }
+        val existingRekening = _rekeningList.value?.find { it.name.equals(rekening.name, ignoreCase = true) }
         if (existingRekening != null) {
             return false
         }
