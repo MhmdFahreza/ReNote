@@ -9,13 +9,14 @@ import com.piggybank.renote.R
 
 class RekeningAdapter(
     private val rekeningList: List<Rekening>,
-    private val onArrowClick: (Rekening) -> Unit // Add this click handler
+    private val onArrowClick: (Rekening) -> Unit,
+    private val formatCurrency: (Long) -> String // Menambahkan parameter untuk formatCurrency
 ) : RecyclerView.Adapter<RekeningAdapter.RekeningViewHolder>() {
 
     class RekeningViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.rekening_name)
         val balanceTextView: TextView = itemView.findViewById(R.id.account_amount)
-        val arrowIcon: View = itemView.findViewById(R.id.arrow_icon) // Assume this is the ID for arrow icon
+        val arrowIcon: View = itemView.findViewById(R.id.arrow_icon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RekeningViewHolder {
@@ -27,7 +28,7 @@ class RekeningAdapter(
     override fun onBindViewHolder(holder: RekeningViewHolder, position: Int) {
         val rekening = rekeningList[position]
         holder.nameTextView.text = rekening.name
-        holder.balanceTextView.text = "Rp. ${rekening.balance}"
+        holder.balanceTextView.text = formatCurrency(rekening.uang) 
         holder.arrowIcon.setOnClickListener { onArrowClick(rekening) }
     }
 

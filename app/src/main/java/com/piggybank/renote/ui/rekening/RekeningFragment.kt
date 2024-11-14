@@ -28,13 +28,13 @@ class RekeningFragment : Fragment() {
         val root: View = binding.root
 
         rekeningViewModel.totalSaldo.observe(viewLifecycleOwner) { totalSaldo ->
-            binding.totalSaldo.text = getString(R.string.total_saldo_rekening, totalSaldo)
+            binding.totalSaldo.text = rekeningViewModel.formatCurrency(totalSaldo) // Menggunakan format mata uang
         }
 
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
-            val adapter = RekeningAdapter(rekeningList) { rekening ->
+            val adapter = RekeningAdapter(rekeningList, { rekening ->
                 findNavController().navigate(R.id.action_rekeningFragment_to_editRekening)
-            }
+            }, rekeningViewModel::formatCurrency) // Pass the format function
             binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
             binding.rekeningList.adapter = adapter
         }

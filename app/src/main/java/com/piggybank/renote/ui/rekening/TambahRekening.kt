@@ -33,13 +33,13 @@ class TambahRekening : Fragment(R.layout.fragment_tambah_rekening) {
             if (namaRekening.isNotBlank() && jumlahRekening.isNotBlank()) {
                 val saldo = jumlahRekening.toDoubleOrNull()
                 if (saldo != null) {
-                    val rekeningBaru = Rekening(namaRekening, saldo)
+                    val rekeningBaru = Rekening(namaRekening, saldo.toLong())
                     rekeningViewModel.addRekening(rekeningBaru)
-                    findNavController().navigateUp() // Navigate back to RekeningFragment
+                    findNavController().navigateUp()
                 } else {
-                    // Handle invalid number format
                     Toast.makeText(requireContext(), "Jumlah rekening tidak valid", Toast.LENGTH_SHORT).show()
                 }
+
             } else {
                 // Handle empty input
                 Toast.makeText(requireContext(), "Harap isi semua field", Toast.LENGTH_SHORT).show()

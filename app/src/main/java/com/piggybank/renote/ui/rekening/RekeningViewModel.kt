@@ -3,22 +3,24 @@ package com.piggybank.renote.ui.rekening
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import java.text.NumberFormat
+import java.util.Locale
 
 class RekeningViewModel : ViewModel() {
 
     private val _rekeningList = MutableLiveData<List<Rekening>>().apply {
         value = listOf(
-            Rekening("Dana", 0.0),
-            Rekening("OVO", 0.0),
-            Rekening("BRI", 0.0)
+            Rekening("Dana", 0L),
+            Rekening("OVO", 0L),
+            Rekening("BRI", 0L)
         )
     }
     val rekeningList: LiveData<List<Rekening>> = _rekeningList
 
-    private val _totalSaldo = MutableLiveData<Double>().apply {
-        value = _rekeningList.value?.sumOf { it.balance } ?: 0.0
+    private val _totalSaldo = MutableLiveData<Long>().apply {
+        value = _rekeningList.value?.sumOf { it.uang } ?: 0L
     }
-    val totalSaldo: LiveData<Double> = _totalSaldo
+    val totalSaldo: LiveData<Long> = _totalSaldo
 
     // Fungsi untuk menambah rekening baru
     fun addRekening(rekening: Rekening) {
@@ -30,6 +32,12 @@ class RekeningViewModel : ViewModel() {
 
     // Fungsi untuk mengupdate total saldo
     private fun updateTotalSaldo() {
-        _totalSaldo.value = _rekeningList.value?.sumOf { it.balance } ?: 0.0
+        _totalSaldo.value = _rekeningList.value?.sumOf { it.uang } ?: 0L
+    }
+
+    // Fungsi untuk format saldo menjadi mata uang Indonesia
+    fun formatCurrency(amount: Long): String {
+        val format = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        return format.format(amount).replace("Rp", "Rp.") // Menambahkan titik setelah "Rp"
     }
 }
