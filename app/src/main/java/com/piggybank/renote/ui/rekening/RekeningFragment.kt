@@ -21,7 +21,7 @@ class RekeningFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         rekeningViewModel = ViewModelProvider(requireActivity()).get(RekeningViewModel::class.java)
 
         _binding = FragmentRekeningBinding.inflate(inflater, container, false)
@@ -33,7 +33,9 @@ class RekeningFragment : Fragment() {
 
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
             val adapter = RekeningAdapter(rekeningList, { rekening ->
-                findNavController().navigate(R.id.action_rekeningFragment_to_editRekening)
+                // Navigasi menggunakan Safe Args untuk mengirim data rekening
+                val action = RekeningFragmentDirections.actionRekeningFragmentToEditRekening(rekening)
+                findNavController().navigate(action)
             }, rekeningViewModel::formatCurrency) // Pass the format function
             binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
             binding.rekeningList.adapter = adapter

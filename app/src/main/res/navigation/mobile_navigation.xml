@@ -62,6 +62,10 @@
         android:id="@+id/navigation_editRekening"
         android:name="com.piggybank.renote.ui.rekening.EditRekening"
         android:label="Edit Rekening"
-        tools:layout="@layout/fragment_edit_rekening" />
+        tools:layout="@layout/fragment_edit_rekening">
+        <argument
+            android:name="rekening"
+            app:argType="com.piggybank.renote.ui.rekening.Rekening" />
+    </fragment>
 
 </navigation>
