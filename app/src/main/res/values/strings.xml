@@ -46,4 +46,5 @@
     <string name="pengeluaran_text">Pengeluaran\n Rp %1$s</string>
     <string name="positive_saldo_text">Total\n Rp %1$s</string>
     <string name="negative_saldo_text">Total\n Rp %1$s</string>
+    <string name="my_rekening">My Rekening</string>
 </resources>

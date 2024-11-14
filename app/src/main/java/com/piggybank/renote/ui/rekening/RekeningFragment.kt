@@ -16,13 +16,13 @@ class RekeningFragment : Fragment() {
     private var _binding: FragmentRekeningBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var rekeningViewModel: RekeningViewModel
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val rekeningViewModel =
-            ViewModelProvider(this).get(RekeningViewModel::class.java)
+    ): View? {
+        rekeningViewModel = ViewModelProvider(requireActivity()).get(RekeningViewModel::class.java)
 
         _binding = FragmentRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -32,7 +32,7 @@ class RekeningFragment : Fragment() {
         }
 
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
-            val adapter = RekeningAdapter(rekeningList) { _ ->
+            val adapter = RekeningAdapter(rekeningList) { rekening ->
                 findNavController().navigate(R.id.action_rekeningFragment_to_editRekening)
             }
             binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
@@ -51,4 +51,3 @@ class RekeningFragment : Fragment() {
         _binding = null
     }
 }
-
