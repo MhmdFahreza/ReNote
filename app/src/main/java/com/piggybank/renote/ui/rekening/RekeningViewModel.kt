@@ -39,6 +39,23 @@ class RekeningViewModel : ViewModel() {
         _totalSaldo.value = _rekeningList.value?.sumOf { it.uang } ?: 0L
     }
 
+    fun updateRekening(updatedRekening: Rekening): Boolean {
+        val currentList = _rekeningList.value?.toMutableList() ?: return false
+
+        val index = currentList.indexOfFirst { it.name.equals(updatedRekening.name, ignoreCase = true) }
+        if (index == -1) {
+            // Rekening not found
+            return false
+        }
+
+        // Update the rekening at the found index
+        currentList[index] = updatedRekening
+        _rekeningList.value = currentList
+
+        updateTotalSaldo() // Optionally update the total saldo after the update
+        return true
+    }
+
     fun formatCurrency(amount: Long): String {
         val format = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
         return format.format(amount).replace("Rp", "Rp.") // Menambahkan titik setelah "Rp"

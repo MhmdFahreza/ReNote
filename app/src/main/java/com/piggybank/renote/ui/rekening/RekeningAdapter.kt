@@ -10,7 +10,7 @@ import com.piggybank.renote.R
 class RekeningAdapter(
     private val rekeningList: List<Rekening>,
     private val onArrowClick: (Rekening) -> Unit,
-    private val formatCurrency: (Long) -> String // Menambahkan parameter untuk formatCurrency
+    private val formatCurrency: (Long) -> String // Pass formatCurrency function
 ) : RecyclerView.Adapter<RekeningAdapter.RekeningViewHolder>() {
 
     class RekeningViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,7 +28,7 @@ class RekeningAdapter(
     override fun onBindViewHolder(holder: RekeningViewHolder, position: Int) {
         val rekening = rekeningList[position]
         holder.nameTextView.text = rekening.name
-        holder.balanceTextView.text = formatCurrency(rekening.uang) 
+        holder.balanceTextView.text = formatCurrency(rekening.uang)
         holder.arrowIcon.setOnClickListener { onArrowClick(rekening) }
     }
 
