@@ -27,16 +27,18 @@ class RekeningFragment : Fragment() {
         _binding = FragmentRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Observe total saldo
         rekeningViewModel.totalSaldo.observe(viewLifecycleOwner) { totalSaldo ->
-            binding.totalSaldo.text = rekeningViewModel.formatCurrency(totalSaldo) // Using currency format
+            binding.totalSaldo.text = rekeningViewModel.formatCurrency(totalSaldo)
         }
 
+        // Observe rekening list
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
             val adapter = RekeningAdapter(rekeningList, { rekening ->
                 // Navigate using Safe Args to pass the rekening data
                 val action = RekeningFragmentDirections.actionRekeningFragmentToEditRekening(rekening)
                 findNavController().navigate(action)
-            }, rekeningViewModel::formatCurrency) // Pass format function
+            }, rekeningViewModel::formatCurrency)
             binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
             binding.rekeningList.adapter = adapter
         }

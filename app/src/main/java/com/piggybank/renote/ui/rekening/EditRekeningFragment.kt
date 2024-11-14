@@ -29,9 +29,11 @@ class EditRekeningFragment : Fragment() {
         _binding = FragmentEditRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Set the current rekening data
         binding.rekeningNameEdit.setText(args.rekening.name)
         binding.rekeningJumlahEdit.setText(args.rekening.uang.toString())
 
+        // Handle save button click
         binding.buttonSimpan.setOnClickListener {
             val newAmount = binding.rekeningJumlahEdit.text.toString()
 
@@ -47,6 +49,23 @@ class EditRekeningFragment : Fragment() {
                 } else {
                     Toast.makeText(context, "Terjadi kesalahan saat memperbarui rekening", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+
+        // Handle back button click
+        binding.iconBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        // Handle delete button click
+        binding.deleteIcon.setOnClickListener {
+            val isDeleted = rekeningViewModel.deleteRekening(args.rekening)
+
+            if (isDeleted) {
+                Toast.makeText(context, "Rekening berhasil dihapus", Toast.LENGTH_SHORT).show()
+                findNavController().navigateUp()  // Navigate back after delete
+            } else {
+                Toast.makeText(context, "Terjadi kesalahan saat menghapus rekening", Toast.LENGTH_SHORT).show()
             }
         }
 

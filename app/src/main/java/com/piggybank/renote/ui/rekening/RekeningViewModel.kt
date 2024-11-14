@@ -10,7 +10,7 @@ class RekeningViewModel : ViewModel() {
 
     private val _rekeningList = MutableLiveData<List<Rekening>>().apply {
         value = listOf(
-            Rekening("Dana", 0L),
+            Rekening("DANA", 0L),
             Rekening("OVO", 0L),
             Rekening("BRI", 0L)
         )
@@ -44,15 +44,28 @@ class RekeningViewModel : ViewModel() {
 
         val index = currentList.indexOfFirst { it.name.equals(updatedRekening.name, ignoreCase = true) }
         if (index == -1) {
-            // Rekening not found
             return false
         }
 
-        // Update the rekening at the found index
         currentList[index] = updatedRekening
         _rekeningList.value = currentList
+        updateTotalSaldo()
+        return true
+    }
 
-        updateTotalSaldo() // Optionally update the total saldo after the update
+    fun deleteRekening(rekening: Rekening): Boolean {
+        val currentList = _rekeningList.value?.toMutableList() ?: return false
+
+        val index = currentList.indexOfFirst { it.name.equals(rekening.name, ignoreCase = true) }
+        if (index == -1) {
+            return false
+        }
+
+        // Subtract the amount from totalSaldo before deleting
+        _totalSaldo.value = _totalSaldo.value?.minus(currentList[index].uang)
+
+        currentList.removeAt(index)
+        _rekeningList.value = currentList
         return true
     }
 
