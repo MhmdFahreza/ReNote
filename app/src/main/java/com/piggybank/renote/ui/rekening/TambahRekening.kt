@@ -17,15 +17,12 @@ class TambahRekening : Fragment(R.layout.fragment_tambah_rekening) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Mengambil instance ViewModel
         rekeningViewModel = ViewModelProvider(requireActivity()).get(RekeningViewModel::class.java)
 
-        // Set OnClickListener untuk icon_back
         view.findViewById<View>(R.id.icon_back).setOnClickListener {
             findNavController().navigateUp()
         }
 
-        // Set OnClickListener untuk tombol Simpan
         view.findViewById<Button>(R.id.button_simpan).setOnClickListener {
             val namaRekening = view.findViewById<EditText>(R.id.input_nama_rekening).text.toString()
             val jumlahRekening = view.findViewById<EditText>(R.id.input_jumlah_rekening).text.toString()
@@ -34,15 +31,18 @@ class TambahRekening : Fragment(R.layout.fragment_tambah_rekening) {
                 val saldo = jumlahRekening.toDoubleOrNull()
                 if (saldo != null) {
                     val rekeningBaru = Rekening(namaRekening, saldo.toLong())
-                    rekeningViewModel.addRekening(rekeningBaru)
-                    findNavController().navigateUp()
+                    // Cek apakah rekening sudah ada
+                    val isAdded = rekeningViewModel.addRekening(rekeningBaru)
+                    if (isAdded) {
+                        findNavController().navigateUp()
+                    } else {
+                        Toast.makeText(requireContext(), "Rekening Sudah '$namaRekening' Terdaftar", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(requireContext(), "Jumlah rekening tidak valid", Toast.LENGTH_SHORT).show()
                 }
-
             } else {
-                // Handle empty input
-                Toast.makeText(requireContext(), "Harap isi semua field", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Harap isi semua untuk melengkapi data Rekening", Toast.LENGTH_SHORT).show()
             }
         }
     }

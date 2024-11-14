@@ -22,20 +22,23 @@ class RekeningViewModel : ViewModel() {
     }
     val totalSaldo: LiveData<Long> = _totalSaldo
 
-    // Fungsi untuk menambah rekening baru
-    fun addRekening(rekening: Rekening) {
+    fun addRekening(rekening: Rekening): Boolean {
+        val existingRekening = _rekeningList.value?.find { it.name == rekening.name }
+        if (existingRekening != null) {
+            return false
+        }
+
         val updatedList = _rekeningList.value?.toMutableList() ?: mutableListOf()
         updatedList.add(rekening)
         _rekeningList.value = updatedList
         updateTotalSaldo()
+        return true
     }
 
-    // Fungsi untuk mengupdate total saldo
     private fun updateTotalSaldo() {
         _totalSaldo.value = _rekeningList.value?.sumOf { it.uang } ?: 0L
     }
 
-    // Fungsi untuk format saldo menjadi mata uang Indonesia
     fun formatCurrency(amount: Long): String {
         val format = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
         return format.format(amount).replace("Rp", "Rp.") // Menambahkan titik setelah "Rp"
