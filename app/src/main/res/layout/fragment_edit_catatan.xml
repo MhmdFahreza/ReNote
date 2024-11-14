@@ -22,8 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/back_icon"
-        android:onClick="onBackIconClicked" />
+        android:contentDescription="@string/back_icon" />
 
     <ImageView
         android:id="@+id/delete_icon"

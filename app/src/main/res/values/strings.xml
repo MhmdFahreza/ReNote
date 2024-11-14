@@ -44,6 +44,6 @@
 
     <string name="pemasukan_text">Pemasukan\n Rp %1$s</string>
     <string name="pengeluaran_text">Pengeluaran\n Rp %1$s</string>
-    <string name="positive_saldo_text">Total\n+ Rp %1$s</string>
+    <string name="positive_saldo_text">Total\n Rp %1$s</string>
     <string name="negative_saldo_text">Total\n Rp %1$s</string>
 </resources>

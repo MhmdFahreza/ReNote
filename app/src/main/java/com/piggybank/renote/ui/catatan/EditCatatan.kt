@@ -22,13 +22,22 @@ class EditCatatan : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentEditCatatanBinding.inflate(inflater, container, false)
 
         val selectedCatatan = catatanViewModel.selectedCatatan
         currentKategoriType = if (selectedCatatan?.kategori == "Pemasukan") "Pemasukan" else "Pengeluaran"
 
-        binding.inputAmount.setText(selectedCatatan?.nominal)
+        binding.topBar.setOnClickListener {
+            onBackIconClicked()
+        }
+
+        // Display amount without prefix, but store full string if needed
+        selectedCatatan?.nominal?.let {
+            val displayedAmount = it.replace("+ Rp ", "").replace("- Rp ", "")
+            binding.inputAmount.setText(displayedAmount)
+        }
+
         binding.inputDescription.setText(selectedCatatan?.deskripsi)
 
         setupCategorySpinner(currentKategoriType)
@@ -36,9 +45,12 @@ class EditCatatan : Fragment() {
 
         // Event listener for update button
         binding.buttonChange.setOnClickListener {
+            val rawNominal = binding.inputAmount.text.toString()
+            val formattedNominal = formatNominal(rawNominal, currentKategoriType)
+
             val updatedCatatan = Catatan(
                 kategori = binding.spinnerCategory.selectedItem.toString(),
-                nominal = binding.inputAmount.text.toString(),
+                nominal = formattedNominal,
                 deskripsi = binding.inputDescription.text.toString()
             )
             catatanViewModel.updateCatatan(updatedCatatan)
@@ -84,8 +96,20 @@ class EditCatatan : Fragment() {
         }
     }
 
+    private fun onBackIconClicked() {
+        findNavController().navigateUp()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun formatNominal(amount: String, type: String): String {
+        return if (type == "Pemasukan") {
+            if (!amount.startsWith("+ Rp. ")) "+ Rp $amount" else amount
+        } else {
+            if (!amount.startsWith("- Rp. ")) "- Rp $amount" else amount
+        }
     }
 }
