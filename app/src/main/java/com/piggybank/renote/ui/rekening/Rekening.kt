@@ -7,5 +7,4 @@ import kotlinx.android.parcel.Parcelize
 data class Rekening(
     val name: String,
     val uang: Long,
-    var isActive: Boolean = false
 ) : Parcelable
