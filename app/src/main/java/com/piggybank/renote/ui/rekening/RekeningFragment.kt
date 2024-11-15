@@ -28,10 +28,12 @@ class RekeningFragment : Fragment() {
         _binding = FragmentRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // Observe total saldo
         rekeningViewModel.totalSaldo.observe(viewLifecycleOwner) { totalSaldo ->
             binding.totalSaldo.text = rekeningViewModel.formatCurrency(totalSaldo)
         }
 
+        // Observe rekening list and update UI
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
             adapter = RekeningAdapter(
                 rekeningList,
@@ -43,24 +45,18 @@ class RekeningFragment : Fragment() {
                 rekeningViewModel::formatCurrency
             )
 
-            rekeningViewModel.activeRekening.value?.let { activeRekening ->
-                adapter.selectedPosition = rekeningList.indexOfFirst { it.name == activeRekening.name }
-            }
-
             binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
             binding.rekeningList.adapter = adapter
         }
 
+        // Observe active rekening
         rekeningViewModel.activeRekening.observe(viewLifecycleOwner) { activeRekening ->
             activeRekening?.let {
-                val position = rekeningViewModel.rekeningList.value?.indexOf(it) ?: -1
-                if (position != -1) {
-                    adapter.selectedPosition = position
-                    adapter.notifyDataSetChanged()
-                }
+                adapter.notifyDataSetChanged()
             }
         }
 
+        // Add rekening button click listener
         binding.rekeningAdd.setOnClickListener {
             findNavController().navigate(R.id.action_rekeningFragment_to_tambahRekening)
         }

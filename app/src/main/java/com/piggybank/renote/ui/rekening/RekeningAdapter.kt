@@ -13,14 +13,6 @@ class RekeningAdapter(
     private val formatCurrency: (Long) -> String
 ) : RecyclerView.Adapter<RekeningAdapter.RekeningViewHolder>() {
 
-    var selectedPosition: Int = RecyclerView.NO_POSITION
-        set(value) {
-            val previousPosition = field
-            field = value
-            if (previousPosition != RecyclerView.NO_POSITION) notifyItemChanged(previousPosition)
-            if (value != RecyclerView.NO_POSITION) notifyItemChanged(value)
-        }
-
     class RekeningViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.rekening_name)
         val balanceTextView: TextView = itemView.findViewById(R.id.account_amount)
@@ -40,25 +32,13 @@ class RekeningAdapter(
         holder.nameTextView.text = rekening.name
         holder.balanceTextView.text = formatCurrency(rekening.uang)
 
-        val isSelected = holder.adapterPosition == selectedPosition
-        holder.itemView.isSelected = isSelected
-        holder.statusTextView.visibility = if (isSelected) View.VISIBLE else View.GONE
-        holder.statusTextView.text = if (isSelected)
-            holder.itemView.context.getString(R.string.status_active)
-        else ""
-
-        holder.itemView.setOnClickListener {
-            val previousPosition = selectedPosition
-            selectedPosition = holder.adapterPosition
-
-            if (previousPosition != RecyclerView.NO_POSITION) {
-                notifyItemChanged(previousPosition)
-            }
-            notifyItemChanged(selectedPosition)
-        }
+        // Show active status if the balance is greater than 0
+        val isActive = rekening.uang > 0
+        holder.statusTextView.visibility = if (isActive) View.VISIBLE else View.GONE
+        holder.statusTextView.text = holder.itemView.context.getString(R.string.status_active)
 
         holder.arrowIcon.setOnClickListener {
-            onArrowClick(rekeningList[holder.adapterPosition])
+            onArrowClick(rekening)
         }
     }
 
