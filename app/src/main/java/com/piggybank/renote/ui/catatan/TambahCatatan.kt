@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -20,7 +21,7 @@ class TambahCatatan : Fragment() {
     private val binding get() = _binding!!
 
     private val catatanViewModel: CatatanViewModel by activityViewModels()
-    private val rekeningViewModel: RekeningViewModel by activityViewModels() // Tambahkan ini
+    private val rekeningViewModel: RekeningViewModel by activityViewModels()
 
     private var selectedDate: Calendar? = null
 
@@ -58,16 +59,24 @@ class TambahCatatan : Fragment() {
 
         binding.buttonCreate.setOnClickListener {
             val kategori = binding.spinnerCategory.selectedItem.toString()
-            val nominal = binding.inputAmount.text.toString().toDoubleOrNull() ?: 0.0
+            val nominal = binding.inputAmount.text.toString()
             val deskripsi = binding.inputDescription.text.toString()
             val isPengeluaran = binding.toggleGroup.checkedRadioButtonId == R.id.radio_pengeluaran
 
-            val adjustedNominal = if (isPengeluaran) -nominal else nominal
+            val adjustedNominal = if (isPengeluaran) "-$nominal" else nominal
 
-            // Kirim data ke ViewModel
-            catatanViewModel.addCatatan(kategori, adjustedNominal.toString(), deskripsi)
+            if (selectedDate == null) {
+                Toast.makeText(requireContext(), "Pilih tanggal terlebih dahulu!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            // Perbarui saldo rekening
+            if (kategori == "Pilih Kategori" || nominal.isBlank() || deskripsi.isBlank()) {
+                Toast.makeText(requireContext(), "Isi semua data dengan benar!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            catatanViewModel.addCatatan(selectedDate!!, kategori, adjustedNominal, deskripsi)
+
             rekeningViewModel.updateTotalSaldo(adjustedNominal)
 
             bottomNavigationView.visibility = View.VISIBLE
@@ -100,7 +109,6 @@ class TambahCatatan : Fragment() {
                     set(selectedYear, selectedMonth, selectedDay)
                 }
                 binding.textDate.text = getString(R.string.date_format, selectedDay, selectedMonth + 1, selectedYear)
-
             },
             year, month, day
         )

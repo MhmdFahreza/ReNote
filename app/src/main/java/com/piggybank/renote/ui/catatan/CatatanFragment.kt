@@ -18,7 +18,7 @@ import java.util.Locale
 
 class CatatanFragment : Fragment() {
 
-    private var selectedDate: Calendar? = null
+    private var selectedDate: Calendar = Calendar.getInstance()
     private var _binding: FragmentCatatanBinding? = null
     private val binding get() = _binding!!
 
@@ -44,29 +44,7 @@ class CatatanFragment : Fragment() {
             addItemDecoration(itemDecoration)
         }
 
-        catatanViewModel.catatanList.observe(viewLifecycleOwner) { catatanList ->
-            catatanAdapter.submitList(catatanList)
-        }
-
-        catatanViewModel.totalPemasukan.observe(viewLifecycleOwner) { pemasukan ->
-            val formattedPemasukan = NumberFormat.getNumberInstance(Locale.getDefault()).format(pemasukan)
-            binding.textPemasukan.text = getString(R.string.pemasukan_text, formattedPemasukan)
-        }
-
-        catatanViewModel.totalPengeluaran.observe(viewLifecycleOwner) { pengeluaran ->
-            val formattedPengeluaran = NumberFormat.getNumberInstance(Locale.getDefault()).format(pengeluaran)
-            binding.textPengeluaran.text = getString(R.string.pengeluaran_text, formattedPengeluaran)
-        }
-
-        catatanViewModel.totalSaldo.observe(viewLifecycleOwner) { saldo ->
-            val formattedSaldo = NumberFormat.getNumberInstance(Locale.getDefault()).format(saldo)
-            val saldoText = if (saldo < 0) {
-                getString(R.string.negative_saldo_text, formattedSaldo)
-            } else {
-                getString(R.string.positive_saldo_text, formattedSaldo)
-            }
-            binding.textTotal.text = saldoText
-        }
+        updateUIForDate(selectedDate)
 
         binding.catatanAdd.setOnClickListener {
             catatanViewModel.clearSelectedCatatan()
@@ -80,11 +58,40 @@ class CatatanFragment : Fragment() {
         return binding.root
     }
 
+    private fun updateUIForDate(date: Calendar) {
+        catatanViewModel.updateDataForDate(date)
+
+        catatanViewModel.catatanList.observe(viewLifecycleOwner) { catatanList ->
+            catatanAdapter.submitList(catatanList)
+        }
+
+        catatanViewModel.totalPemasukan.observe(viewLifecycleOwner) { pemasukan ->
+            val formattedPemasukan =
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(pemasukan)
+            binding.textPemasukan.text = getString(R.string.pemasukan_text, formattedPemasukan)
+        }
+
+        catatanViewModel.totalPengeluaran.observe(viewLifecycleOwner) { pengeluaran ->
+            val formattedPengeluaran =
+                NumberFormat.getNumberInstance(Locale.getDefault()).format(pengeluaran)
+            binding.textPengeluaran.text = getString(R.string.pengeluaran_text, formattedPengeluaran)
+        }
+
+        catatanViewModel.totalSaldo.observe(viewLifecycleOwner) { saldo ->
+            val formattedSaldo = NumberFormat.getNumberInstance(Locale.getDefault()).format(saldo)
+            val saldoText = if (saldo < 0) {
+                getString(R.string.negative_saldo_text, formattedSaldo)
+            } else {
+                getString(R.string.positive_saldo_text, formattedSaldo)
+            }
+            binding.textTotal.text = saldoText
+        }
+    }
+
     private fun showDatePickerDialog() {
-        val calendar = selectedDate ?: Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val year = selectedDate.get(Calendar.YEAR)
+        val month = selectedDate.get(Calendar.MONTH)
+        val day = selectedDate.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(
             requireContext(),
@@ -92,6 +99,7 @@ class CatatanFragment : Fragment() {
                 selectedDate = Calendar.getInstance().apply {
                     set(selectedYear, selectedMonth, selectedDay)
                 }
+                updateUIForDate(selectedDate)
             },
             year, month, day
         )
