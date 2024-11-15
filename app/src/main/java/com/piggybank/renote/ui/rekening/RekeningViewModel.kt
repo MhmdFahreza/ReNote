@@ -22,6 +22,7 @@ class RekeningViewModel : ViewModel() {
     }
     val totalSaldo: LiveData<Long> = _totalSaldo
 
+
     fun addRekening(rekening: Rekening): Boolean {
         val existingRekening = _rekeningList.value?.find { it.name.equals(rekening.name, ignoreCase = true) }
         if (existingRekening != null) {
@@ -33,6 +34,11 @@ class RekeningViewModel : ViewModel() {
         _rekeningList.value = updatedList
         updateTotalSaldo()
         return true
+    }
+
+    fun updateTotalSaldo(amount: Double) {
+        val updatedSaldo = (_totalSaldo.value ?: 0L) + amount.toLong()
+        _totalSaldo.value = updatedSaldo
     }
 
     private fun updateTotalSaldo() {
@@ -61,7 +67,6 @@ class RekeningViewModel : ViewModel() {
             return false
         }
 
-        // Subtract the amount from totalSaldo before deleting
         _totalSaldo.value = _totalSaldo.value?.minus(currentList[index].uang)
 
         currentList.removeAt(index)
@@ -71,6 +76,6 @@ class RekeningViewModel : ViewModel() {
 
     fun formatCurrency(amount: Long): String {
         val format = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
-        return format.format(amount).replace("Rp", "Rp.") // Menambahkan titik setelah "Rp"
+        return format.format(amount).replace("Rp", "Rp.")
     }
 }

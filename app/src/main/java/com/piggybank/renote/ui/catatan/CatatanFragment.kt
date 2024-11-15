@@ -48,7 +48,6 @@ class CatatanFragment : Fragment() {
             catatanAdapter.submitList(catatanList)
         }
 
-        // Inside your observe blocks in CatatanFragment
         catatanViewModel.totalPemasukan.observe(viewLifecycleOwner) { pemasukan ->
             val formattedPemasukan = NumberFormat.getNumberInstance(Locale.getDefault()).format(pemasukan)
             binding.textPemasukan.text = getString(R.string.pemasukan_text, formattedPemasukan)

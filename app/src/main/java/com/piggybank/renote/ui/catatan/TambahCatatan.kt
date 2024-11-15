@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentTambahBinding
+import com.piggybank.renote.ui.rekening.RekeningViewModel
 import java.util.Calendar
 
 class TambahCatatan : Fragment() {
@@ -20,10 +21,10 @@ class TambahCatatan : Fragment() {
     private val binding get() = _binding!!
 
     private val catatanViewModel: CatatanViewModel by activityViewModels()
+    private val rekeningViewModel: RekeningViewModel by activityViewModels() // Tambahkan ini
 
     private var selectedDate: Calendar? = null
 
-    // Define categories for Income and Expense
     private val pemasukanCategory = listOf("Pilih Kategori", "Gaji", "Investasi", "Paruh Waktu", "Lain-lain")
     private val pengeluaranCategory = listOf("Pilih Kategori", "Belanja", "Makanan", "Minuman", "Pulsa", "Transportasi", "Lain-lain")
 
@@ -34,12 +35,10 @@ class TambahCatatan : Fragment() {
     ): View {
         _binding = FragmentTambahBinding.inflate(inflater, container, false)
 
-        // Menyembunyikan bottom navigation
         val bottomNavigationView = requireActivity().findViewById<View>(R.id.nav_view)
         bottomNavigationView.visibility = View.GONE
 
         binding.iconBack.setOnClickListener {
-            // Menampilkan kembali bottom navigation saat kembali
             bottomNavigationView.visibility = View.VISIBLE
             findNavController().navigateUp()
         }
@@ -64,12 +63,14 @@ class TambahCatatan : Fragment() {
             val deskripsi = binding.inputDescription.text.toString()
             val isPengeluaran = binding.toggleGroup.checkedRadioButtonId == R.id.radio_pengeluaran
 
-            val formattedNominal = if (isPengeluaran) "- Rp $nominal" else "+ Rp $nominal"
+            val adjustedNominal = if (isPengeluaran) -nominal else nominal
 
-            // Send data to CatatanFragment through ViewModel
-            catatanViewModel.addCatatan(kategori, formattedNominal, deskripsi)
+            // Kirim data ke ViewModel
+            catatanViewModel.addCatatan(kategori, adjustedNominal.toString(), deskripsi)
 
-            // Menampilkan kembali bottom navigation sebelum pindah halaman
+            // Perbarui saldo rekening
+            rekeningViewModel.updateTotalSaldo(adjustedNominal)
+
             bottomNavigationView.visibility = View.VISIBLE
             findNavController().navigateUp()
         }
@@ -88,7 +89,6 @@ class TambahCatatan : Fragment() {
     }
 
     private fun showDatePickerDialog() {
-        // Use selectedDate or current date if null
         val calendar = selectedDate ?: Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
@@ -97,11 +97,9 @@ class TambahCatatan : Fragment() {
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Set the selected date in selectedDate
                 selectedDate = Calendar.getInstance().apply {
                     set(selectedYear, selectedMonth, selectedDay)
                 }
-                // Update UI with the selected date
                 binding.textDate.text = "$selectedDay/${selectedMonth + 1}/$selectedYear"
             },
             year, month, day
