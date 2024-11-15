@@ -42,23 +42,27 @@ class CatatanViewModel : ViewModel() {
             val newNominal = getNominalValue(updatedCatatan.nominal)
 
             if (it.kategori == updatedCatatan.kategori) {
+                // Both old and new categories are the same
                 val difference = newNominal - oldNominal
-                if (it.kategori == "Pemasukan") {
+                if (updatedCatatan.kategori == "Pemasukan") {
                     _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) + difference
                 } else {
                     _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + difference
                 }
             } else {
+                // The category has changed
                 if (it.kategori == "Pemasukan") {
+                    // Old was "Pemasukan", new is "Pengeluaran"
                     _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) - oldNominal
                     _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + newNominal
                 } else {
+                    // Old was "Pengeluaran", new is "Pemasukan"
                     _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) - oldNominal
                     _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) + newNominal
                 }
             }
 
-            // Update saldo
+            // Correctly update the total saldo
             _totalSaldo.value = (_totalSaldo.value ?: 0.0) - oldNominal + newNominal
         }
 
@@ -67,6 +71,7 @@ class CatatanViewModel : ViewModel() {
         _catatanList.value = updatedList
         clearSelectedCatatan()
     }
+
 
     fun deleteCatatan(catatan: Catatan) {
         val currentList = _catatanList.value?.filter { it != catatan } ?: emptyList()
