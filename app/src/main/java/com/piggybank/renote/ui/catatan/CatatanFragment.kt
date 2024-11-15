@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentCatatanBinding
+import java.text.NumberFormat
 import java.util.Calendar
 import java.util.Locale
 
@@ -47,21 +48,25 @@ class CatatanFragment : Fragment() {
             catatanAdapter.submitList(catatanList)
         }
 
+        // Inside your observe blocks in CatatanFragment
         catatanViewModel.totalPemasukan.observe(viewLifecycleOwner) { pemasukan ->
-            binding.textPemasukan.text = getString(R.string.pemasukan_text, String.format(Locale.getDefault(), "%.1f", pemasukan))
+            val formattedPemasukan = NumberFormat.getNumberInstance(Locale.getDefault()).format(pemasukan)
+            binding.textPemasukan.text = getString(R.string.pemasukan_text, formattedPemasukan)
         }
 
         catatanViewModel.totalPengeluaran.observe(viewLifecycleOwner) { pengeluaran ->
-            binding.textPengeluaran.text = getString(R.string.pengeluaran_text, String.format(Locale.getDefault(), "%.1f", pengeluaran))
+            val formattedPengeluaran = NumberFormat.getNumberInstance(Locale.getDefault()).format(pengeluaran)
+            binding.textPengeluaran.text = getString(R.string.pengeluaran_text, formattedPengeluaran)
         }
 
         catatanViewModel.totalSaldo.observe(viewLifecycleOwner) { saldo ->
-            val formattedSaldo = if (saldo < 0) {
-                getString(R.string.negative_saldo_text, String.format(Locale.getDefault(), "%.1f", saldo))
+            val formattedSaldo = NumberFormat.getNumberInstance(Locale.getDefault()).format(saldo)
+            val saldoText = if (saldo < 0) {
+                getString(R.string.negative_saldo_text, formattedSaldo)
             } else {
-                getString(R.string.positive_saldo_text, String.format(Locale.getDefault(), "%.1f", saldo))
+                getString(R.string.positive_saldo_text, formattedSaldo)
             }
-            binding.textTotal.text = formattedSaldo
+            binding.textTotal.text = saldoText
         }
 
         binding.catatanAdd.setOnClickListener {
