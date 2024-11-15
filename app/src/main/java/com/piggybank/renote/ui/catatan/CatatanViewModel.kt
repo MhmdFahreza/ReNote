@@ -42,7 +42,6 @@ class CatatanViewModel : ViewModel() {
             val newNominal = getNominalValue(updatedCatatan.nominal)
 
             if (it.kategori == updatedCatatan.kategori) {
-                // Both old and new categories are the same
                 val difference = newNominal - oldNominal
                 if (updatedCatatan.kategori == "Pemasukan") {
                     _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) + difference
@@ -50,19 +49,15 @@ class CatatanViewModel : ViewModel() {
                     _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + difference
                 }
             } else {
-                // The category has changed
                 if (it.kategori == "Pemasukan") {
-                    // Old was "Pemasukan", new is "Pengeluaran"
                     _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) - oldNominal
                     _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + newNominal
                 } else {
-                    // Old was "Pengeluaran", new is "Pemasukan"
                     _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) - oldNominal
                     _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) + newNominal
                 }
             }
 
-            // Correctly update the total saldo
             _totalSaldo.value = (_totalSaldo.value ?: 0.0) - oldNominal + newNominal
         }
 
