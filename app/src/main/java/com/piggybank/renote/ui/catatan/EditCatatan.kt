@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentEditCatatanBinding
 
 class EditCatatan : Fragment() {
@@ -16,7 +15,6 @@ class EditCatatan : Fragment() {
     private var _binding: FragmentEditCatatanBinding? = null
     private val binding get() = _binding!!
     private val catatanViewModel: CatatanViewModel by activityViewModels()
-    private var currentKategoriType: String = "Pengeluaran"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,89 +23,46 @@ class EditCatatan : Fragment() {
     ): View {
         _binding = FragmentEditCatatanBinding.inflate(inflater, container, false)
 
+        // Load selectedCatatan data
         val selectedCatatan = catatanViewModel.selectedCatatan
-        currentKategoriType = if (selectedCatatan?.kategori == "Pemasukan") "Pemasukan" else "Pengeluaran"
-
-        binding.topBar.setOnClickListener {
-            onBackIconClicked()
-        }
-
-        selectedCatatan?.nominal?.let {
-            val displayedAmount = it.replace("+ Rp ", "").replace("- Rp ", "")
-            binding.inputAmount.setText(displayedAmount)
-        }
-
-        binding.inputDescription.setText(selectedCatatan?.deskripsi)
-
-        setupCategorySpinner(currentKategoriType)
-        setupToggleGroup()
-
-        binding.buttonChange.setOnClickListener {
-            val rawNominal = binding.inputAmount.text.toString()
-            val formattedNominal = formatNominal(rawNominal, currentKategoriType)
-
-            val updatedCatatan = Catatan(
-                kategori = binding.spinnerCategory.selectedItem.toString(),
-                nominal = formattedNominal,
-                deskripsi = binding.inputDescription.text.toString()
-            )
-
-            catatanViewModel.updateCatatanWithAmountUpdate(updatedCatatan, selectedCatatan)
+        if (selectedCatatan != null) {
+            binding.inputAmount.setText(selectedCatatan.nominal)
+            binding.inputDescription.setText(selectedCatatan.deskripsi)
+        } else {
+            Toast.makeText(requireContext(), "Tidak ada catatan yang dipilih!", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
         }
 
-        binding.deleteIcon.setOnClickListener {
-            selectedCatatan?.let {
-                catatanViewModel.deleteCatatan(it)
+        // Edit button functionality
+        binding.buttonEdit.setOnClickListener {
+            val newNominal = binding.inputAmount.text.toString()
+            val newDeskripsi = binding.inputDescription.text.toString()
+
+            if (newNominal.isNotBlank() && newDeskripsi.isNotBlank()) {
+                catatanViewModel.editCatatan(newNominal, newDeskripsi)
+                Toast.makeText(requireContext(), "Catatan berhasil diubah!", Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
+            } else {
+                Toast.makeText(requireContext(), "Nominal dan deskripsi tidak boleh kosong!", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // Delete button functionality
+        binding.deleteIcon.setOnClickListener {
+            catatanViewModel.deleteSelectedCatatan()
+            Toast.makeText(requireContext(), "Catatan berhasil dihapus!", Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+        }
+
+        binding.topBar.setOnClickListener {
+            findNavController().navigateUp()
         }
 
         return binding.root
     }
 
-    private fun setupCategorySpinner(kategoriType: String) {
-        val spinnerAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            getCategories(kategoriType)
-        )
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spinnerCategory.adapter = spinnerAdapter
-    }
-
-    private fun setupToggleGroup() {
-        binding.radioPengeluaran.isChecked = currentKategoriType == "Pengeluaran"
-        binding.radioPemasukan.isChecked = currentKategoriType == "Pemasukan"
-
-        binding.toggleGroup.setOnCheckedChangeListener { _, checkedId ->
-            currentKategoriType = if (checkedId == R.id.radio_pemasukan) "Pemasukan" else "Pengeluaran"
-            setupCategorySpinner(currentKategoriType)
-        }
-    }
-
-    private fun getCategories(kategori: String): List<String> {
-        return if (kategori == "Pemasukan") {
-            listOf("Gaji", "Investasi", "Paruh Waktu", "Lain-lain")
-        } else {
-            listOf("Belanja", "Makanan & Minuman", "Pulsa", "Pendidikan", "Kecantikan", "Top Up", "Donasi", "Lain-lain")
-        }
-    }
-
-    private fun onBackIconClicked() {
-        findNavController().navigateUp()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun formatNominal(amount: String, type: String): String {
-        return if (type == "Pemasukan") {
-            if (!amount.startsWith("+ Rp. ")) "+ Rp $amount" else amount
-        } else {
-            if (!amount.startsWith("- Rp. ")) "- Rp $amount" else amount
-        }
     }
 }

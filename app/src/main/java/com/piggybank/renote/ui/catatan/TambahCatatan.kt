@@ -100,7 +100,8 @@ class TambahCatatan : Fragment() {
                 selectedDate = Calendar.getInstance().apply {
                     set(selectedYear, selectedMonth, selectedDay)
                 }
-                binding.textDate.text = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                binding.textDate.text = getString(R.string.date_format, selectedDay, selectedMonth + 1, selectedYear)
+
             },
             year, month, day
         )

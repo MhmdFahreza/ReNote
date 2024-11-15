@@ -36,53 +36,57 @@ class CatatanViewModel : ViewModel() {
         _catatanList.value = updatedList
     }
 
-    fun updateCatatanWithAmountUpdate(updatedCatatan: Catatan, oldCatatan: Catatan?) {
-        oldCatatan?.let {
-            val oldNominal = getNominalValue(it.nominal)
-            val newNominal = getNominalValue(updatedCatatan.nominal)
+    fun editCatatan(newNominal: String, newDeskripsi: String) {
+        selectedCatatan?.let { catatan ->
+            val currentList = _catatanList.value?.toMutableList() ?: mutableListOf()
+            val index = currentList.indexOf(catatan)
+            if (index != -1) {
+                // Update totals
+                val oldNominalValue = catatan.nominal.replace("[^\\d.-]".toRegex(), "").toDoubleOrNull() ?: 0.0
+                val newNominalValue = newNominal.replace("[^\\d.-]".toRegex(), "").toDoubleOrNull() ?: 0.0
 
-            if (it.kategori == updatedCatatan.kategori) {
-                val difference = newNominal - oldNominal
-                if (updatedCatatan.kategori == "Pemasukan") {
-                    _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) + difference
+                if (oldNominalValue < 0) {
+                    _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) - oldNominalValue
                 } else {
-                    _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + difference
+                    _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) - oldNominalValue
                 }
-            } else {
-                if (it.kategori == "Pemasukan") {
-                    _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) - oldNominal
-                    _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + newNominal
+
+                if (newNominalValue < 0) {
+                    _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) + newNominalValue
                 } else {
-                    _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) - oldNominal
-                    _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) + newNominal
+                    _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) + newNominalValue
                 }
+                _totalSaldo.value = (_totalSaldo.value ?: 0.0) - oldNominalValue + newNominalValue
+
+                // Update catatan
+                val updatedCatatan = catatan.copy(nominal = newNominal, deskripsi = newDeskripsi)
+                currentList[index] = updatedCatatan
+                _catatanList.value = currentList
+
+                // Update selectedCatatan
+                selectedCatatan = updatedCatatan
             }
-
-            _totalSaldo.value = (_totalSaldo.value ?: 0.0) - oldNominal + newNominal
         }
-
-        // Update the list and clear selection
-        val updatedList = _catatanList.value?.map { if (it == oldCatatan) updatedCatatan else it } ?: emptyList()
-        _catatanList.value = updatedList
-        clearSelectedCatatan()
     }
 
+    fun deleteSelectedCatatan() {
+        selectedCatatan?.let { catatan ->
+            val currentList = _catatanList.value?.toMutableList() ?: mutableListOf()
+            if (currentList.remove(catatan)) {
+                // Update totals
+                val nominalValue = catatan.nominal.replace("[^\\d.-]".toRegex(), "").toDoubleOrNull() ?: 0.0
+                if (nominalValue < 0) {
+                    _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) - nominalValue
+                } else {
+                    _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) - nominalValue
+                }
+                _totalSaldo.value = (_totalSaldo.value ?: 0.0) - nominalValue
 
-    fun deleteCatatan(catatan: Catatan) {
-        val currentList = _catatanList.value?.filter { it != catatan } ?: emptyList()
-        _catatanList.value = currentList
-
-        val nominalValue = getNominalValue(catatan.nominal)
-        if (catatan.kategori == "Pemasukan") {
-            _totalPemasukan.value = (_totalPemasukan.value ?: 0.0) - nominalValue
-        } else {
-            _totalPengeluaran.value = (_totalPengeluaran.value ?: 0.0) - nominalValue
+                // Update list
+                _catatanList.value = currentList
+                selectedCatatan = null
+            }
         }
-        _totalSaldo.value = (_totalSaldo.value ?: 0.0) - nominalValue
-    }
-
-    private fun getNominalValue(nominal: String): Double {
-        return nominal.replace("[^\\d.-]".toRegex(), "").toDoubleOrNull() ?: 0.0
     }
 
     fun clearSelectedCatatan() {
