@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -36,10 +35,10 @@ class TambahCatatan : Fragment() {
         _binding = FragmentTambahBinding.inflate(inflater, container, false)
 
         val bottomNavigationView = requireActivity().findViewById<View>(R.id.nav_view)
-        bottomNavigationView.visibility = View.GONE
+        bottomNavigationView.visibility = View.GONE // Sembunyikan saat TambahCatatan aktif
 
         binding.iconBack.setOnClickListener {
-            bottomNavigationView.visibility = View.VISIBLE
+            bottomNavigationView.visibility = View.VISIBLE // Tampilkan kembali sebelum navigasi kembali
             findNavController().navigateUp()
         }
 
@@ -49,7 +48,7 @@ class TambahCatatan : Fragment() {
 
         setupCategorySpinner(pengeluaranCategory)
 
-        binding.toggleGroup.setOnCheckedChangeListener { _: RadioGroup, checkedId: Int ->
+        binding.toggleGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.radio_pengeluaran) {
                 setupCategorySpinner(pengeluaranCategory)
             } else if (checkedId == R.id.radio_pemasukan) {
@@ -111,6 +110,8 @@ class TambahCatatan : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        val bottomNavigationView = requireActivity().findViewById<View>(R.id.nav_view)
+        bottomNavigationView.visibility = View.VISIBLE // Tampilkan kembali BottomNavigationView
         _binding = null
     }
 }
