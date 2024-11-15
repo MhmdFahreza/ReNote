@@ -17,6 +17,7 @@ class RekeningFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var rekeningViewModel: RekeningViewModel
+    private lateinit var adapter: RekeningAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,20 +28,37 @@ class RekeningFragment : Fragment() {
         _binding = FragmentRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Observe total saldo
         rekeningViewModel.totalSaldo.observe(viewLifecycleOwner) { totalSaldo ->
             binding.totalSaldo.text = rekeningViewModel.formatCurrency(totalSaldo)
         }
 
-        // Observe rekening list
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
-            val adapter = RekeningAdapter(rekeningList, { rekening ->
-                // Navigate using Safe Args to pass the rekening data
-                val action = RekeningFragmentDirections.actionRekeningFragmentToEditRekening(rekening)
-                findNavController().navigate(action)
-            }, rekeningViewModel::formatCurrency)
+            adapter = RekeningAdapter(
+                rekeningList,
+                { rekening ->
+                    rekeningViewModel.setActiveRekening(rekening)
+                    val action = RekeningFragmentDirections.actionRekeningFragmentToEditRekening(rekening)
+                    findNavController().navigate(action)
+                },
+                rekeningViewModel::formatCurrency
+            )
+
+            rekeningViewModel.activeRekening.value?.let { activeRekening ->
+                adapter.selectedPosition = rekeningList.indexOfFirst { it.name == activeRekening.name }
+            }
+
             binding.rekeningList.layoutManager = LinearLayoutManager(requireContext())
             binding.rekeningList.adapter = adapter
+        }
+
+        rekeningViewModel.activeRekening.observe(viewLifecycleOwner) { activeRekening ->
+            activeRekening?.let {
+                val position = rekeningViewModel.rekeningList.value?.indexOf(it) ?: -1
+                if (position != -1) {
+                    adapter.selectedPosition = position
+                    adapter.notifyDataSetChanged()
+                }
+            }
         }
 
         binding.rekeningAdd.setOnClickListener {

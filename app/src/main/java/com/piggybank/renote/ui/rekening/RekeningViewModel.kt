@@ -22,6 +22,12 @@ class RekeningViewModel : ViewModel() {
     }
     val totalSaldo: LiveData<Long> = _totalSaldo
 
+    private val _activeRekening = MutableLiveData<Rekening?>()
+    val activeRekening: LiveData<Rekening?> = _activeRekening
+
+    fun setActiveRekening(rekening: Rekening) {
+        _activeRekening.value = rekening
+    }
 
     fun addRekening(rekening: Rekening): Boolean {
         val existingRekening = _rekeningList.value?.find { it.name.equals(rekening.name, ignoreCase = true) }
