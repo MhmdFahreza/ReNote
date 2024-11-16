@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentEditCatatanBinding
 import java.util.Calendar
 
@@ -23,6 +24,10 @@ class EditCatatan : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditCatatanBinding.inflate(inflater, container, false)
+
+        // Hide the bottom navigation bar
+        val bottomNavigationView = requireActivity().findViewById<View>(R.id.nav_view)
+        bottomNavigationView.visibility = View.GONE
 
         val selectedCatatan = catatanViewModel.selectedCatatan
         if (selectedCatatan != null) {
@@ -71,5 +76,11 @@ class EditCatatan : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val bottomNavigationView = requireActivity().findViewById<View>(R.id.nav_view)
+        bottomNavigationView.visibility = View.VISIBLE
     }
 }
