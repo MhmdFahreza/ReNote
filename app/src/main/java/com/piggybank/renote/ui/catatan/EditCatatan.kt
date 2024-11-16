@@ -17,8 +17,6 @@ class EditCatatan : Fragment() {
     private val binding get() = _binding!!
     private val catatanViewModel: CatatanViewModel by activityViewModels()
 
-    private var selectedDate: Calendar? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,7 +38,11 @@ class EditCatatan : Fragment() {
             val newDeskripsi = binding.inputDescription.text.toString()
 
             if (newNominal.isNotBlank() && newDeskripsi.isNotBlank() && selectedCatatan != null) {
-                val date = selectedDate ?: Calendar.getInstance()
+                val dateKey = selectedCatatan.tanggal.split("-")
+                val date = Calendar.getInstance().apply {
+                    set(dateKey[2].toInt(), dateKey[1].toInt() - 1, dateKey[0].toInt())
+                }
+
                 catatanViewModel.editCatatan(date, newNominal, newDeskripsi)
                 Toast.makeText(requireContext(), "Catatan berhasil diubah!", Toast.LENGTH_SHORT).show()
                 findNavController().navigateUp()
@@ -50,7 +52,10 @@ class EditCatatan : Fragment() {
         }
 
         binding.deleteIcon.setOnClickListener {
-            val date = selectedDate ?: Calendar.getInstance()
+            val dateKey = selectedCatatan!!.tanggal.split("-")
+            val date = Calendar.getInstance().apply {
+                set(dateKey[2].toInt(), dateKey[1].toInt() - 1, dateKey[0].toInt())
+            }
             catatanViewModel.deleteSelectedCatatan(date)
             Toast.makeText(requireContext(), "Catatan berhasil dihapus!", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()

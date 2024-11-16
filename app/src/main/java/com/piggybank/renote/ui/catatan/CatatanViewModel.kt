@@ -40,15 +40,14 @@ class CatatanViewModel : ViewModel() {
         val nominalValue = nominal.replace("[^\\d.-]".toRegex(), "").toDoubleOrNull() ?: 0.0
         val formattedDate = "${date.get(Calendar.DAY_OF_MONTH)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.YEAR)}"
 
-        // Tambahkan properti `tanggal` saat membuat Catatan
         val newCatatan = Catatan(kategori, nominalValue.toString(), deskripsi, formattedDate)
 
         val currentList = allData[dateKey] ?: mutableListOf()
         currentList.add(newCatatan)
         allData[dateKey] = currentList
         updateDataForDate(date)
+        recalculateTotals()
     }
-
 
     fun editCatatan(date: Calendar, newNominal: String, newDeskripsi: String) {
         selectedCatatan?.let { catatan ->
@@ -59,6 +58,7 @@ class CatatanViewModel : ViewModel() {
                 currentList[index] = catatan.copy(nominal = newNominal, deskripsi = newDeskripsi)
                 allData[dateKey] = currentList
                 updateDataForDate(date)
+                recalculateTotals()
             }
         }
     }
@@ -70,11 +70,22 @@ class CatatanViewModel : ViewModel() {
             currentList.remove(catatan)
             allData[dateKey] = currentList
             updateDataForDate(date)
+            recalculateTotals()
         }
     }
 
     private fun getDateKey(date: Calendar): String {
         return "${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}"
+    }
+
+    fun recalculateTotals() {
+        val allCatatan = allData.values.flatten()
+
+        val pemasukan = allCatatan.filter { it.nominal.toDouble() >= 0 }.sumOf { it.nominal.toDouble() }
+        val pengeluaran = allCatatan.filter { it.nominal.toDouble() < 0 }.sumOf { it.nominal.toDouble() }
+        _totalPemasukan.value = pemasukan
+        _totalPengeluaran.value = pengeluaran
+        _totalSaldo.value = pemasukan + pengeluaran
     }
 
     fun clearSelectedCatatan() {
