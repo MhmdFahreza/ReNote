@@ -20,7 +20,8 @@
         app:itemIconTint="@android:color/black"
         app:itemTextColor="@android:color/black"
         app:itemBackground="@drawable/bottom_nav_item_background"
-        app:labelVisibilityMode="labeled" />
+        app:labelVisibilityMode="labeled"
+        app:itemHorizontalTranslationEnabled="true" />
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
