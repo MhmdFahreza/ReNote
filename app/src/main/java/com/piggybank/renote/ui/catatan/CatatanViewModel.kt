@@ -23,6 +23,8 @@ class CatatanViewModel : ViewModel() {
 
     var selectedCatatan: Catatan? = null
 
+    var saldoChangeListener: ((Double) -> Unit)? = null // Listener untuk menginformasikan perubahan saldo
+
     fun updateDataForDate(date: Calendar) {
         val dateKey = getDateKey(date)
         val currentList = allData[dateKey]?.toMutableList() ?: mutableListOf()
@@ -46,7 +48,6 @@ class CatatanViewModel : ViewModel() {
         currentList.add(newCatatan)
         allData[dateKey] = currentList
         updateDataForDate(date)
-        recalculateTotals()
     }
 
     fun editCatatan(date: Calendar, newNominal: String, newDeskripsi: String) {
@@ -55,10 +56,15 @@ class CatatanViewModel : ViewModel() {
             val currentList = allData[dateKey]?.toMutableList() ?: mutableListOf()
             val index = currentList.indexOf(catatan)
             if (index != -1) {
+                val oldNominal = catatan.nominal.toDouble()
+                val newNominalValue = newNominal.replace("[^\\d.-]".toRegex(), "").toDoubleOrNull() ?: 0.0
+
                 currentList[index] = catatan.copy(nominal = newNominal, deskripsi = newDeskripsi)
                 allData[dateKey] = currentList
                 updateDataForDate(date)
-                recalculateTotals()
+
+                // Notify saldo change
+                saldoChangeListener?.invoke(newNominalValue - oldNominal)
             }
         }
     }
@@ -67,25 +73,18 @@ class CatatanViewModel : ViewModel() {
         selectedCatatan?.let { catatan ->
             val dateKey = getDateKey(date)
             val currentList = allData[dateKey]?.toMutableList() ?: mutableListOf()
-            currentList.remove(catatan)
-            allData[dateKey] = currentList
-            updateDataForDate(date)
-            recalculateTotals()
+            if (currentList.remove(catatan)) {
+                allData[dateKey] = currentList
+                updateDataForDate(date)
+
+                // Notify saldo change
+                saldoChangeListener?.invoke(-catatan.nominal.toDouble())
+            }
         }
     }
 
     private fun getDateKey(date: Calendar): String {
         return "${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH) + 1}-${date.get(Calendar.DAY_OF_MONTH)}"
-    }
-
-    fun recalculateTotals() {
-        val allCatatan = allData.values.flatten()
-
-        val pemasukan = allCatatan.filter { it.nominal.toDouble() >= 0 }.sumOf { it.nominal.toDouble() }
-        val pengeluaran = allCatatan.filter { it.nominal.toDouble() < 0 }.sumOf { it.nominal.toDouble() }
-        _totalPemasukan.value = pemasukan
-        _totalPengeluaran.value = pengeluaran
-        _totalSaldo.value = pemasukan + pengeluaran
     }
 
     fun clearSelectedCatatan() {

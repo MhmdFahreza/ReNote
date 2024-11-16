@@ -43,7 +43,7 @@ class RekeningViewModel : ViewModel() {
     }
 
     fun updateTotalSaldo(amount: String) {
-        val updatedSaldo = (_totalSaldo.value ?: 0L) + amount.toLong()
+        val updatedSaldo = (_totalSaldo.value ?: 0L) + amount.toDouble().toLong()
         _totalSaldo.value = updatedSaldo
     }
 

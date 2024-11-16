@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentRekeningBinding
+import com.piggybank.renote.ui.catatan.CatatanViewModel
 
 class RekeningFragment : Fragment() {
 
@@ -17,6 +19,8 @@ class RekeningFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var rekeningViewModel: RekeningViewModel
+    private val catatanViewModel: CatatanViewModel by activityViewModels()
+
     private lateinit var adapter: RekeningAdapter
 
     override fun onCreateView(
@@ -24,6 +28,11 @@ class RekeningFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         rekeningViewModel = ViewModelProvider(requireActivity()).get(RekeningViewModel::class.java)
+
+        // Hubungkan saldoChangeListener dari CatatanViewModel ke RekeningViewModel
+        catatanViewModel.saldoChangeListener = { change ->
+            rekeningViewModel.updateTotalSaldo(change.toString())
+        }
 
         _binding = FragmentRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -49,14 +58,6 @@ class RekeningFragment : Fragment() {
             binding.rekeningList.adapter = adapter
         }
 
-        // Observe active rekening
-        rekeningViewModel.activeRekening.observe(viewLifecycleOwner) { activeRekening ->
-            activeRekening?.let {
-                adapter.notifyDataSetChanged()
-            }
-        }
-
-        // Add rekening button click listener
         binding.rekeningAdd.setOnClickListener {
             findNavController().navigate(R.id.action_rekeningFragment_to_tambahRekening)
         }
