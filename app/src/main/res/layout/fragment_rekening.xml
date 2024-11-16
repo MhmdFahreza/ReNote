@@ -121,7 +121,7 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/tambah"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/light_brown"
+        app:backgroundTint="@color/orange"
         app:layout_constraintBottom_toTopOf="@id/bottom_spacers"
         app:layout_constraintEnd_toEndOf="parent" />
 

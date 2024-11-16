@@ -5,9 +5,11 @@
     <string name="menu_rekening">Rekening</string>
     <string name="menu_laporan">Laporan</string>
     <string name="icon_calendar">Calendar</string>
+
     <string name="input_pemasukan">Pemasukan\n0</string>
     <string name="input_pengeluaran">Pengeluaran\n0</string>
     <string name="input_total">Total\n0</string>
+
     <string name="riwayat">Riwayat</string>
     <string name="kategori">Kategori</string>
     <string name="deskripsi_transaksi">Deskripsi transaksi</string>
