@@ -12,7 +12,7 @@
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Status bar color (cream). -->
-        <item name="android:statusBarColor">@color/Gainsboro</item>
+        <item name="android:statusBarColor">@color/beige</item>
 
         <!-- Set text color for menu items to black -->
         <item name="android:textColorPrimary">@color/black</item>

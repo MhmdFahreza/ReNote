@@ -1,7 +1,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="warm_cream">#FFFDE7</color>
+    <color name="warm_cream">#F7EEDD</color>
     <color name="light_brown">#D2B48C</color>
     <color name="dark_brown">#A0522D</color>
     <color name="cream">#FFFDD0</color>
@@ -13,4 +13,5 @@
     <color name="dark_teal">#FAF0E6</color>
     <color name="deep_orange">#dcdcdc</color>
     <color name="orange">#FF7F50</color>
+    <color name="beige">#c4bcab</color>
 </resources>
