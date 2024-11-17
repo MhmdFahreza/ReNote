@@ -62,9 +62,7 @@ class LaporanFragment : Fragment() {
 
         // Observe selected date
         laporanViewModel.selectedDate.observe(viewLifecycleOwner) { (month, year) ->
-            val fullMonth = monthMap[month] ?: month // Convert to full name if exists
-            val selectedDate = "$fullMonth $year"
-            binding.dateDropdown.text = selectedDate
+            binding.dateDropdown.text = "${monthMap[month] ?: month} $year"
         }
 
         // Setup Dropdown Click Listener
@@ -113,10 +111,10 @@ class LaporanFragment : Fragment() {
             .setView(dialogView)
             .setPositiveButton("OK") { _, _ ->
                 if (!selectedMonth.isNullOrEmpty() && !selectedYear.isNullOrEmpty()) {
-                    val selectedDate = "$selectedMonth $selectedYear"
-                    binding.dateDropdown.text = monthMap[selectedMonth] ?: selectedMonth + " $selectedYear"
+                    val displayDate = (monthMap[selectedMonth] ?: selectedMonth) + " $selectedYear"
+                    binding.dateDropdown.text = displayDate
                     laporanViewModel.saveSelectedDate(selectedMonth!!, selectedYear!!)
-                    Toast.makeText(context, "Dipilih: ${monthMap[selectedMonth]} $selectedYear", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Dipilih: $displayDate", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Silakan pilih bulan dan tahun.", Toast.LENGTH_SHORT).show()
                 }
