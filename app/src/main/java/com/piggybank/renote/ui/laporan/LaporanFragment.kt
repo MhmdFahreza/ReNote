@@ -24,6 +24,21 @@ class LaporanFragment : Fragment() {
     private lateinit var laporanAdapter: LaporanAdapter
     private lateinit var laporanViewModel: LaporanViewModel
 
+    private val monthMap = mapOf(
+        "Jan" to "Januari",
+        "Feb" to "Februari",
+        "Mar" to "Maret",
+        "Apr" to "April",
+        "Mei" to "Mei",
+        "Jun" to "Juni",
+        "Jul" to "Juli",
+        "Agust" to "Agustus",
+        "Sept" to "September",
+        "Okt" to "Oktober",
+        "Nov" to "November",
+        "Des" to "Desember"
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,7 +62,8 @@ class LaporanFragment : Fragment() {
 
         // Observe selected date
         laporanViewModel.selectedDate.observe(viewLifecycleOwner) { (month, year) ->
-            val selectedDate = "$month $year"
+            val fullMonth = monthMap[month] ?: month // Convert to full name if exists
+            val selectedDate = "$fullMonth $year"
             binding.dateDropdown.text = selectedDate
         }
 
@@ -98,9 +114,9 @@ class LaporanFragment : Fragment() {
             .setPositiveButton("OK") { _, _ ->
                 if (!selectedMonth.isNullOrEmpty() && !selectedYear.isNullOrEmpty()) {
                     val selectedDate = "$selectedMonth $selectedYear"
-                    binding.dateDropdown.text = selectedDate
+                    binding.dateDropdown.text = monthMap[selectedMonth] ?: selectedMonth + " $selectedYear"
                     laporanViewModel.saveSelectedDate(selectedMonth!!, selectedYear!!)
-                    Toast.makeText(context, "Dipilih: $selectedDate", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Dipilih: ${monthMap[selectedMonth]} $selectedYear", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Silakan pilih bulan dan tahun.", Toast.LENGTH_SHORT).show()
                 }
