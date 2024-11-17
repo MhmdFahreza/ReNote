@@ -15,4 +15,14 @@ class LaporanViewModel : ViewModel() {
         )
     }
     val categoryList: LiveData<List<Laporan>> = _categoryList
+
+    // Tambahkan LiveData untuk bulan dan tahun yang dipilih
+    private val _selectedDate = MutableLiveData<Pair<String, String>>()
+    val selectedDate: LiveData<Pair<String, String>> = _selectedDate
+
+    // Metode untuk menyimpan bulan dan tahun
+    fun saveSelectedDate(month: String, year: String) {
+        _selectedDate.value = month to year
+    }
 }
+
