@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -21,8 +20,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/toggle_group"
@@ -71,21 +69,39 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pie_chart"
+        android:id="@+id/pie_chart_pemasukan"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="16dp"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/date_dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pie_chart_pengeluaran"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/date_dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Tambahkan Barrier -->
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_chart"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="pie_chart_pemasukan,pie_chart_pengeluaran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/laporan_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:overScrollMode="always"
-        app:layout_constraintTop_toBottomOf="@id/pie_chart"
+        app:layout_constraintTop_toBottomOf="@id/barrier_chart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
