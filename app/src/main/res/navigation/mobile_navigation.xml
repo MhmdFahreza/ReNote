@@ -44,7 +44,14 @@
         android:id="@+id/navigation_setting"
         android:name="com.piggybank.renote.ui.setting.SettingFragment"
         android:label="@string/menu_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting">
+        <action
+            android:id="@+id/action_settingFragment_to_profileFragment"
+            app:destination="@id/navigation_profile" />
+        <action
+            android:id="@+id/action_settingFragment_to_tentangFragment"
+            app:destination="@id/navigation_tentang" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_tambahCatatan"
@@ -67,5 +74,17 @@
             android:name="rekening"
             app:argType="com.piggybank.renote.ui.rekening.Rekening" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.piggybank.renote.ui.setting.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_tentang"
+        android:name="com.piggybank.renote.ui.setting.TentangFragment"
+        android:label="@string/tentang"
+        tools:layout="@layout/fragment_tentang" />
 
 </navigation>
