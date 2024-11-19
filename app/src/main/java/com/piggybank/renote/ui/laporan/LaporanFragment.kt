@@ -67,7 +67,6 @@ class LaporanFragment : Fragment() {
         _binding = FragmentLaporanBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Setup RecyclerView
         laporanAdapter = LaporanAdapter(emptyList())
         binding.laporanList.apply {
             layoutManager = LinearLayoutManager(context)
@@ -86,11 +85,9 @@ class LaporanFragment : Fragment() {
             showMonthYearPicker()
         }
 
-        // Setup PieCharts
         setupPieChart(binding.pieChartPemasukan, pemasukanData, pemasukanColors)
         setupPieChart(binding.pieChartPengeluaran, pengeluaranData, pengeluaranColors)
 
-        // RadioButton Listener
         binding.toggleGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_pemasukan -> {

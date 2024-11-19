@@ -32,7 +32,6 @@ class RekeningAdapter(
         holder.nameTextView.text = rekening.name
         holder.balanceTextView.text = formatCurrency(rekening.uang)
 
-        // Show active status if the balance is greater than 0
         val isActive = rekening.uang > 0
         holder.statusTextView.visibility = if (isActive) View.VISIBLE else View.GONE
         holder.statusTextView.text = holder.itemView.context.getString(R.string.status_active)

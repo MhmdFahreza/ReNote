@@ -7,7 +7,6 @@
     android:padding="16dp"
     android:background="#FFFFFF">
 
-    <!-- CardView untuk Spinner Tahun -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +21,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Judul -->
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
@@ -34,7 +32,6 @@
                 android:paddingBottom="8dp"
                 android:textColor="#333333" />
 
-            <!-- Spinner Tahun -->
             <Spinner
                 android:id="@+id/yearSpinner"
                 android:layout_width="match_parent"

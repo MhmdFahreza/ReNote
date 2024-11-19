@@ -22,7 +22,6 @@ class SettingFragment : Fragment() {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Set click listeners
         binding.profileOption.setOnClickListener {
             findNavController().navigate(R.id.action_settingFragment_to_profileFragment)
         }

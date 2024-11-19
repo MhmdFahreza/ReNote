@@ -29,7 +29,6 @@ class RekeningFragment : Fragment() {
     ): View {
         rekeningViewModel = ViewModelProvider(requireActivity()).get(RekeningViewModel::class.java)
 
-        // Hubungkan saldoChangeListener dari CatatanViewModel ke RekeningViewModel
         catatanViewModel.saldoChangeListener = { change ->
             rekeningViewModel.updateTotalSaldo(change.toString())
         }
@@ -37,12 +36,10 @@ class RekeningFragment : Fragment() {
         _binding = FragmentRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Observe total saldo
         rekeningViewModel.totalSaldo.observe(viewLifecycleOwner) { totalSaldo ->
             binding.totalSaldo.text = rekeningViewModel.formatCurrency(totalSaldo)
         }
 
-        // Observe rekening list and update UI
         rekeningViewModel.rekeningList.observe(viewLifecycleOwner) { rekeningList ->
             adapter = RekeningAdapter(
                 rekeningList,

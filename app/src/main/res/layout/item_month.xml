@@ -10,7 +10,6 @@
     android:clickable="true"
     android:focusable="true">
 
-    <!-- Nama Bulan -->
     <TextView
         android:id="@+id/monthName"
         android:layout_width="wrap_content"

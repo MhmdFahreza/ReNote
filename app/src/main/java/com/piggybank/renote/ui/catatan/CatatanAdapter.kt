@@ -43,7 +43,6 @@ class CatatanAdapter(
             binding.categoryTextView.text = catatan.kategori
             binding.descriptionTextView.text = catatan.deskripsi
 
-            // Format nominal
             val numberFormat = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
             val nominal = catatan.nominal.toDoubleOrNull() ?: 0.0
             val formattedNominal = if (nominal >= 0) {
@@ -52,7 +51,6 @@ class CatatanAdapter(
                 "- ${numberFormat.format(-nominal).replace("Rp", "Rp ")}"
             }
             binding.amountTextView.text = formattedNominal
-            // Handle edit click
             binding.arrowIcon.setOnClickListener {
                 onEditClick(catatan)
             }

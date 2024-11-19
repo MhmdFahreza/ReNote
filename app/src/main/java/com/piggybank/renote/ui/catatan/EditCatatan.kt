@@ -25,7 +25,6 @@ class EditCatatan : Fragment() {
     ): View {
         _binding = FragmentEditCatatanBinding.inflate(inflater, container, false)
 
-        // Hide the bottom navigation bar
         val bottomNavigationView = requireActivity().findViewById<View>(R.id.nav_view)
         bottomNavigationView.visibility = View.GONE
 

@@ -88,7 +88,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Tambahkan Barrier -->
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_chart"
         app:barrierDirection="bottom"

@@ -18,7 +18,7 @@ class EditRekeningFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var rekeningViewModel: RekeningViewModel
-    private val args: EditRekeningFragmentArgs by navArgs() // Safe Args to get the passed rekening
+    private val args: EditRekeningFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,11 +29,9 @@ class EditRekeningFragment : Fragment() {
         _binding = FragmentEditRekeningBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Set the current rekening data
         binding.rekeningNameEdit.setText(args.rekening.name)
         binding.rekeningJumlahEdit.setText(args.rekening.uang.toString())
 
-        // Handle save button click
         binding.buttonSimpan.setOnClickListener {
             val newAmount = binding.rekeningJumlahEdit.text.toString()
 
@@ -52,18 +50,16 @@ class EditRekeningFragment : Fragment() {
             }
         }
 
-        // Handle back button click
         binding.iconBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        // Handle delete button click
         binding.deleteIcon.setOnClickListener {
             val isDeleted = rekeningViewModel.deleteRekening(args.rekening)
 
             if (isDeleted) {
                 Toast.makeText(context, "Rekening berhasil dihapus", Toast.LENGTH_SHORT).show()
-                findNavController().navigateUp()  // Navigate back after delete
+                findNavController().navigateUp()
             } else {
                 Toast.makeText(context, "Terjadi kesalahan saat menghapus rekening", Toast.LENGTH_SHORT).show()
             }

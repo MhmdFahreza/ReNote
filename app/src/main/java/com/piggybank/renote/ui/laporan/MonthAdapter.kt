@@ -10,7 +10,7 @@ class MonthAdapter(
     private val onMonthSelected: (String) -> Unit
 ) : RecyclerView.Adapter<MonthAdapter.MonthViewHolder>() {
 
-    private var selectedPosition: Int = -1 // Menyimpan posisi bulan yang dipilih
+    private var selectedPosition: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MonthViewHolder {
         val binding = ItemMonthBinding.inflate(
@@ -35,7 +35,6 @@ class MonthAdapter(
             binding.monthName.text = month
             binding.root.isSelected = (position == selectedPosition)
 
-            // Update background color berdasarkan apakah item terpilih atau tidak
             binding.root.setBackgroundResource(
                 if (position == selectedPosition) R.drawable.month_selector
                 else R.drawable.item_background_calander

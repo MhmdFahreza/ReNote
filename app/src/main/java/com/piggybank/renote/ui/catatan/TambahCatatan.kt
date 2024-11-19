@@ -36,10 +36,10 @@ class TambahCatatan : Fragment() {
         _binding = FragmentTambahBinding.inflate(inflater, container, false)
 
         val bottomNavigationView = requireActivity().findViewById<View>(R.id.nav_view)
-        bottomNavigationView.visibility = View.GONE // Sembunyikan saat TambahCatatan aktif
+        bottomNavigationView.visibility = View.GONE
 
         binding.iconBack.setOnClickListener {
-            bottomNavigationView.visibility = View.VISIBLE // Tampilkan kembali sebelum navigasi kembali
+            bottomNavigationView.visibility = View.VISIBLE
             findNavController().navigateUp()
         }
 
@@ -119,7 +119,7 @@ class TambahCatatan : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         val bottomNavigationView = requireActivity().findViewById<View>(R.id.nav_view)
-        bottomNavigationView.visibility = View.VISIBLE // Tampilkan kembali BottomNavigationView
+        bottomNavigationView.visibility = View.VISIBLE
         _binding = null
     }
 }

@@ -7,7 +7,7 @@ import java.util.Calendar
 
 class CatatanViewModel : ViewModel() {
 
-    private val allData = mutableMapOf<String, MutableList<Catatan>>() // Key: date, Value: list of catatan
+    private val allData = mutableMapOf<String, MutableList<Catatan>>()
 
     private val _catatanList = MutableLiveData<List<Catatan>>(emptyList())
     val catatanList: LiveData<List<Catatan>> = _catatanList
@@ -23,7 +23,7 @@ class CatatanViewModel : ViewModel() {
 
     var selectedCatatan: Catatan? = null
 
-    var saldoChangeListener: ((Double) -> Unit)? = null // Listener untuk menginformasikan perubahan saldo
+    var saldoChangeListener: ((Double) -> Unit)? = null
 
     fun updateDataForDate(date: Calendar) {
         val dateKey = getDateKey(date)
@@ -63,7 +63,6 @@ class CatatanViewModel : ViewModel() {
                 allData[dateKey] = currentList
                 updateDataForDate(date)
 
-                // Notify saldo change
                 saldoChangeListener?.invoke(newNominalValue - oldNominal)
             }
         }
@@ -77,7 +76,6 @@ class CatatanViewModel : ViewModel() {
                 allData[dateKey] = currentList
                 updateDataForDate(date)
 
-                // Notify saldo change
                 saldoChangeListener?.invoke(-catatan.nominal.toDouble())
             }
         }
