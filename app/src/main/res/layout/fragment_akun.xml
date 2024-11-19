@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.setting.SettingFragment">
+    tools:context=".ui.Akun.AkunFragment">
 
     <TextView
         android:id="@+id/title_label"
@@ -15,7 +15,7 @@
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:padding="8dp"
-        android:text="@string/menu_setting"
+        android:text="@string/menu_akun"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -30,7 +30,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="24dp"
         android:contentDescription="@string/profile_gambar"
-        android:src="@drawable/user"
+        android:src="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_label" />
@@ -50,7 +50,7 @@
             android:background="@android:color/darker_gray" />
 
         <TextView
-            android:id="@+id/profile_option"
+            android:id="@+id/menu_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:drawableEndCompat="@drawable/baseline_arrow_right"
@@ -65,13 +65,13 @@
             android:background="@android:color/darker_gray" />
 
         <TextView
-            android:id="@+id/change_theme_option"
+            android:id="@+id/menu_pengaturan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:drawableEndCompat="@drawable/baseline_arrow_right"
             android:drawablePadding="16dp"
             android:padding="16dp"
-            android:text="@string/ganti_tema"
+            android:text="@string/pengaturan"
             android:textSize="18sp" />
 
         <View
@@ -80,13 +80,13 @@
             android:background="@android:color/darker_gray" />
 
         <TextView
-            android:id="@+id/language_option"
+            android:id="@+id/menu_bantuan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:drawableEndCompat="@drawable/baseline_arrow_right"
             android:drawablePadding="16dp"
             android:padding="16dp"
-            android:text="@string/ganti_bahasa"
+            android:text="@string/bantuan"
             android:textSize="18sp" />
 
         <View
@@ -95,7 +95,7 @@
             android:background="@android:color/darker_gray" />
 
         <TextView
-            android:id="@+id/tentang_option"
+            android:id="@+id/menu_tentang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:drawableEndCompat="@drawable/baseline_arrow_right"
