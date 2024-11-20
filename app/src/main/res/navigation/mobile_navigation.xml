@@ -46,10 +46,13 @@
         android:label="@string/menu_akun"
         tools:layout="@layout/fragment_akun">
         <action
-            android:id="@+id/action_settingFragment_to_profileFragment"
+            android:id="@+id/action_akunFragment_to_profileFragment"
             app:destination="@id/navigation_profile" />
         <action
-            android:id="@+id/action_settingFragment_to_tentangFragment"
+            android:id="@+id/action_akunFragment_to_bantuanFragment"
+            app:destination="@id/navigation_bantuan" />
+        <action
+            android:id="@+id/action_akunFragment_to_tentangFragment"
             app:destination="@id/navigation_tentang" />
     </fragment>
 
@@ -79,6 +82,12 @@
         android:id="@+id/navigation_profile"
         android:name="com.piggybank.renote.ui.Akun.ProfileFragment"
         android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_bantuan"
+        android:name="com.piggybank.renote.ui.Akun.BantuanFragment"
+        android:label="@string/bantuan"
         tools:layout="@layout/fragment_profile" />
 
     <fragment

@@ -23,15 +23,15 @@ class AkunFragment : Fragment() {
         val root: View = binding.root
 
         binding.menuProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_settingFragment_to_profileFragment)
+            findNavController().navigate(R.id.action_akunFragment_to_profileFragment)
         }
 
         binding.menuBantuan.setOnClickListener {
-            findNavController().navigate(R.id.action_settingFragment_to_tentangFragment)
+            findNavController().navigate(R.id.action_akunFragment_to_bantuanFragment)
         }
 
         binding.menuTentang.setOnClickListener {
-            findNavController().navigate(R.id.action_settingFragment_to_tentangFragment)
+            findNavController().navigate(R.id.action_akunFragment_to_tentangFragment)
         }
 
         return root

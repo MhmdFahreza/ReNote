@@ -8,7 +8,7 @@
     tools:context=".ui.Akun.AkunFragment">
 
     <TextView
-        android:id="@+id/title_label"
+        android:id="@+id/title_akun"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_brown"
@@ -33,7 +33,7 @@
         android:src="@drawable/profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_label" />
+        app:layout_constraintTop_toBottomOf="@id/title_akun" />
 
     <LinearLayout
         android:layout_width="match_parent"
