@@ -64,4 +64,7 @@
     <string name="nama">Nama</string>
     <string name="logout">Logout</string>
     <string name="bahasa">Bahasa</string>
+    <string name="aplikasi_logo">Aplikasi Logo</string>
+    <string name="app_version">Versi 1.0.0</string>
+    <string name="piggybank">oleh Piggybank</string>
 </resources>

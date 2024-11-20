@@ -36,7 +36,7 @@ class AkunFragment : Fragment() {
             findNavController().navigate(R.id.action_akunFragment_to_tentangFragment)
         }
 
-        binding.menuPengaturan.setOnClickListener {
+        binding.menuBahasa.setOnClickListener {
             val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
             startActivity(intent)
         }
