@@ -102,39 +102,6 @@
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_total"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        app:cardBackgroundColor="@color/orange"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout_pemasukan_pengeluaran">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:orientation="vertical"
-            android:padding="18dp">
-
-            <TextView
-                android:id="@+id/text_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-thin"
-                android:text="@string/input_total"
-                android:textColor="@color/gg_cream"
-                android:textSize="24sp"
-                android:textStyle="bold|italic" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/rounded_canvas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -146,7 +113,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_spacer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_total">
+        app:layout_constraintTop_toBottomOf="@id/linearLayout_pemasukan_pengeluaran">
 
         <ScrollView
             android:layout_width="match_parent"

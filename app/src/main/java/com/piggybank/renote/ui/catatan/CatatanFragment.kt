@@ -76,16 +76,6 @@ class CatatanFragment : Fragment() {
                 NumberFormat.getNumberInstance(Locale.getDefault()).format(pengeluaran)
             binding.textPengeluaran.text = getString(R.string.pengeluaran_text, formattedPengeluaran)
         }
-
-        catatanViewModel.totalSaldo.observe(viewLifecycleOwner) { saldo ->
-            val formattedSaldo = NumberFormat.getNumberInstance(Locale.getDefault()).format(saldo)
-            val saldoText = if (saldo < 0) {
-                getString(R.string.negative_saldo_text, formattedSaldo)
-            } else {
-                getString(R.string.positive_saldo_text, formattedSaldo)
-            }
-            binding.textTotal.text = saldoText
-        }
     }
 
     private fun showDatePickerDialog() {
