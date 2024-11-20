@@ -1,6 +1,8 @@
 package com.piggybank.renote.ui.Akun
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +34,11 @@ class AkunFragment : Fragment() {
 
         binding.menuTentang.setOnClickListener {
             findNavController().navigate(R.id.action_akunFragment_to_tentangFragment)
+        }
+
+        binding.menuPengaturan.setOnClickListener {
+            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            startActivity(intent)
         }
 
         return root
