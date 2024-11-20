@@ -65,13 +65,13 @@
             android:background="@android:color/darker_gray" />
 
         <TextView
-            android:id="@+id/menu_pengaturan"
+            android:id="@+id/menu_bahasa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:drawableEndCompat="@drawable/baseline_arrow_right"
             android:drawablePadding="16dp"
             android:padding="16dp"
-            android:text="@string/pengaturan"
+            android:text="@string/bahasa"
             android:textSize="18sp" />
 
         <View
