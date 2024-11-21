@@ -25,7 +25,6 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Load animations
         val enterAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.enter_animation)
         val exitAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.exit_animation)
 
