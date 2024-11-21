@@ -90,7 +90,7 @@ class ScreenActivity : AppCompatActivity() {
     }
 
     private fun moveMainActivity() {
-        Intent(this, MainActivity::class.java).also {
+        Intent(this, WelcomeActivity::class.java).also {
             startActivity(it)
             finish()
         }
