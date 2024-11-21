@@ -71,9 +71,25 @@
     <string name="welcome">Selamat Datang</string>
     <string name="desc_welcome">
         Catat Semua Pengeluaranmu Dan Jadilah
-        Orang Yang Hemat
+        \nOrang Yang Hemat
     </string>
     <string name="logo_matahari">logo matahari</string>
     <string name="logo_book">logo book</string>
     <string name="slider">slider</string>
+    <string name="daftar_akun">Daftar Akun</string>
+    <string name="logo_google">Logo Google</string>
+    <string name="deskripsi_daftar_akun">
+        Daftarkan akunmu melalui Gmail
+    </string>
+    <string name="deskripsi_rinci">
+        Sudah lebih 1 akun mendaftar aplikasi ReNote
+        dan sudah ada Satuan downloader di seluruh penjuru
+        Desa
+    </string>
+    <string name="data_diri">Data Diri</string>
+    <string name="pemasukan_desc">
+        Kamu juga bisa mencatatan pemasukan
+        \nsesuai dengan kalander aslinya
+    </string>
+    <string name="image_second">image second</string>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cream"
+    android:background="@color/silver"
     tools:context=".ui.welcome.FirstFragment">
 
     <ImageView
@@ -16,20 +16,22 @@
         app:layout_constraintBottom_toTopOf="@id/text_welcome"
         app:layout_constraintDimensionRatio="H,16:9"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintVertical_bias="0.718" />
 
     <TextView
         android:id="@+id/text_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="452dp"
+        android:layout_marginTop="440dp"
         android:text="@string/welcome"
         android:textColor="@color/black"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,8 +39,8 @@
         android:id="@+id/text_desc_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-thin"
+        android:layout_marginTop="28dp"
+        android:fontFamily="sans-serif-condensed"
         android:text="@string/desc_welcome"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -64,22 +66,22 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:contentDescription="@string/slider"
             android:layout_margin="8dp"
+            android:contentDescription="@string/slider"
             android:src="@drawable/circle_slider" />
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:contentDescription="@string/slider"
             android:layout_margin="8dp"
+            android:contentDescription="@string/slider"
             android:src="@drawable/slidebutton" />
 
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:contentDescription="@string/slider"
             android:layout_margin="8dp"
+            android:contentDescription="@string/slider"
             android:src="@drawable/slidebutton" />
 
     </GridLayout>
