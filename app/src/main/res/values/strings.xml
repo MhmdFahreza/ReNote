@@ -66,4 +66,14 @@
     <string name="aplikasi_logo">Aplikasi Logo</string>
     <string name="app_version">Versi 1.0.0</string>
     <string name="piggybank">oleh Piggybank</string>
+
+
+    <string name="welcome">Selamat Datang</string>
+    <string name="desc_welcome">
+        Catat Semua Pengeluaranmu Dan Jadilah
+        Orang Yang Hemat
+    </string>
+    <string name="logo_matahari">logo matahari</string>
+    <string name="logo_book">logo book</string>
+    <string name="slider">slider</string>
 </resources>
