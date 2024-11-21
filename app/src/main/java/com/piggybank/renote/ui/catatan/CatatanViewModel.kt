@@ -3,6 +3,7 @@ package com.piggybank.renote.ui.catatan
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.piggybank.renote.ui.rekening.RekeningViewModel
 import java.util.Calendar
 
 class CatatanViewModel : ViewModel() {
@@ -79,6 +80,15 @@ class CatatanViewModel : ViewModel() {
                 saldoChangeListener?.invoke(-catatan.nominal.toDouble())
             }
         }
+    }
+
+    fun calculateSaldo(): Double {
+        return allData.values.flatten().sumOf { it.nominal.toDouble() }
+    }
+
+    fun refreshSaldo(rekeningViewModel: RekeningViewModel) {
+        val totalSaldo = calculateSaldo()
+        rekeningViewModel.setTotalSaldoDirectly(totalSaldo.toLong())
     }
 
     private fun getDateKey(date: Calendar): String {
