@@ -41,7 +41,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.material.v190)
     implementation(libs.mpandroidchart)
     implementation(libs.androidx.core.ktx)
