@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
-    id("com.google.devtools.ksp")
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -65,6 +64,5 @@ dependencies {
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
     implementation (libs.androidx.room.runtime)
-    ksp (libs.androidx.room.compiler)
 
 }

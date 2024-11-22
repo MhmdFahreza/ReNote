@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentEditCatatanBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Calendar
 
 class EditCatatan : Fragment() {
@@ -47,9 +51,13 @@ class EditCatatan : Fragment() {
                     set(dateKey[2].toInt(), dateKey[1].toInt() - 1, dateKey[0].toInt())
                 }
 
-                catatanViewModel.editCatatan(date, newNominal, newDeskripsi)
-                Toast.makeText(requireContext(), "Catatan berhasil diubah!", Toast.LENGTH_SHORT).show()
-                findNavController().navigateUp()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    catatanViewModel.editCatatan(date, newNominal, newDeskripsi)
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Catatan berhasil diubah!", Toast.LENGTH_SHORT).show()
+                        findNavController().navigateUp()
+                    }
+                }
             } else {
                 Toast.makeText(requireContext(), "Nominal atau deskripsi tidak valid!", Toast.LENGTH_SHORT).show()
             }
@@ -60,9 +68,13 @@ class EditCatatan : Fragment() {
             val date = Calendar.getInstance().apply {
                 set(dateKey[2].toInt(), dateKey[1].toInt() - 1, dateKey[0].toInt())
             }
-            catatanViewModel.deleteSelectedCatatan(date)
-            Toast.makeText(requireContext(), "Catatan berhasil dihapus!", Toast.LENGTH_SHORT).show()
-            findNavController().navigateUp()
+            lifecycleScope.launch(Dispatchers.IO) {
+                catatanViewModel.deleteSelectedCatatan(date)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Catatan berhasil dihapus!", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
+                }
+            }
         }
 
         binding.topBar.setOnClickListener {

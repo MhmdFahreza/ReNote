@@ -9,10 +9,14 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentTambahBinding
 import com.piggybank.renote.ui.rekening.RekeningViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Calendar
 
 class TambahCatatan : Fragment() {
@@ -75,12 +79,15 @@ class TambahCatatan : Fragment() {
                 return@setOnClickListener
             }
 
-            catatanViewModel.addCatatan(selectedDate!!, kategori, adjustedNominal, deskripsi)
-
-            rekeningViewModel.updateTotalSaldo(adjustedNominal)
-
-            bottomNavigationView.visibility = View.VISIBLE
-            findNavController().navigateUp()
+            lifecycleScope.launch {
+                catatanViewModel.addCatatan(selectedDate!!, kategori, adjustedNominal, deskripsi)
+                rekeningViewModel.updateTotalSaldo(adjustedNominal)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Catatan berhasil ditambahkan!", Toast.LENGTH_SHORT).show()
+                    bottomNavigationView.visibility = View.VISIBLE
+                    findNavController().navigateUp()
+                }
+            }
         }
 
         return binding.root

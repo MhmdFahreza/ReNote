@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.piggybank.renote.R
 import com.piggybank.renote.databinding.FragmentCatatanBinding
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Calendar
 import java.util.Locale
@@ -59,22 +61,30 @@ class CatatanFragment : Fragment() {
     }
 
     private fun updateUIForDate(date: Calendar) {
-        catatanViewModel.updateDataForDate(date)
+        lifecycleScope.launch {
+            catatanViewModel.updateDataForDate(date) // Moved to coroutine
 
-        catatanViewModel.catatanList.observe(viewLifecycleOwner) { catatanList ->
-            catatanAdapter.submitList(catatanList)
-        }
+            catatanViewModel.catatanList.observe(viewLifecycleOwner) { catatanList ->
+                lifecycleScope.launch {
+                    catatanAdapter.submitList(catatanList)
+                }
+            }
 
-        catatanViewModel.totalPemasukan.observe(viewLifecycleOwner) { pemasukan ->
-            val formattedPemasukan =
-                NumberFormat.getNumberInstance(Locale.getDefault()).format(pemasukan)
-            binding.textPemasukan.text = getString(R.string.pemasukan_text, formattedPemasukan)
-        }
+            catatanViewModel.totalPemasukan.observe(viewLifecycleOwner) { pemasukan ->
+                lifecycleScope.launch {
+                    val formattedPemasukan =
+                        NumberFormat.getNumberInstance(Locale.getDefault()).format(pemasukan)
+                    binding.textPemasukan.text = getString(R.string.pemasukan_text, formattedPemasukan)
+                }
+            }
 
-        catatanViewModel.totalPengeluaran.observe(viewLifecycleOwner) { pengeluaran ->
-            val formattedPengeluaran =
-                NumberFormat.getNumberInstance(Locale.getDefault()).format(pengeluaran)
-            binding.textPengeluaran.text = getString(R.string.pengeluaran_text, formattedPengeluaran)
+            catatanViewModel.totalPengeluaran.observe(viewLifecycleOwner) { pengeluaran ->
+                lifecycleScope.launch {
+                    val formattedPengeluaran =
+                        NumberFormat.getNumberInstance(Locale.getDefault()).format(pengeluaran)
+                    binding.textPengeluaran.text = getString(R.string.pengeluaran_text, formattedPengeluaran)
+                }
+            }
         }
     }
 
